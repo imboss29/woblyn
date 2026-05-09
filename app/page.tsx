@@ -7,14 +7,16 @@ export default function Home() {
       </div>
 
       <nav>
-        <div className="nav-left">
-          <a href="#solution">Solutions</a>
-          <a href="#pricing">Tarifs</a>
-          <a href="#">Exemples</a>
-        </div>
+  <div className="nav-left" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+    <img src="/logo.png" alt="Woblyn" style={{ height: '36px' }} />
+    <a href="#solution">Solutions</a>
+    <a href="#pricing">Tarifs</a>
+    <a href="#">Exemples</a>
+  </div>
+
         <div>
-  <img src="/logo.png" alt="Woblyn" style={{ height: '50px', display: 'block', margin: '0 auto' }} />
-  <div className="logo-sub">Business Plans · Établi 2026</div>
+  <div className="logo">Woblyn</div>
+  <div className="logo-sub">Business Plans</div>
 </div>
         <div className="nav-right">
           <a href="/signup" className="nav-cta">Commencer</a>
