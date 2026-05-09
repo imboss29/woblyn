@@ -13,9 +13,9 @@ export default function Home() {
           <a href="#">Exemples</a>
         </div>
         <div>
-          <div className="logo">Woblyn</div>
-          <div className="logo-sub">Business Plans · Établi 2025</div>
-        </div>
+  <img src="/logo.png" alt="Woblyn" style={{ height: '50px', display: 'block', margin: '0 auto' }} />
+  <div className="logo-sub">Business Plans · Établi 2026</div>
+</div>
         <div className="nav-right">
           <a href="/signup" className="nav-cta">Commencer</a>
         </div>
