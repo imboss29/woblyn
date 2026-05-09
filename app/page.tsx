@@ -222,11 +222,22 @@ export default function Home() {
       </section>
 
       <footer>
-        <div className="footer-inner">
-          <div className="footer-logo">Woblyn</div>
-          <div className="footer-meta">© 2025 · Tous droits réservés</div>
-        </div>
-      </footer>
+  <div className="footer-inner" style={{ flexDirection: 'column', gap: '32px', alignItems: 'flex-start' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+      <div className="footer-logo">Woblyn</div>
+      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+        <a href="/mentions-legales" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>Mentions légales</a>
+        <a href="/confidentialite" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>Confidentialité</a>
+        <a href="/cgv" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>CGV</a>
+        <a href="/cgu" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>CGU</a>
+      </div>
+    </div>
+    <div style={{ width: '100%', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="footer-meta">© 2026 · Tous droits réservés</div>
+      <div className="footer-meta">contact@woblyn.com</div>
+    </div>
+  </div>
+</footer>
     </>
   )
 }

@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '../../lib/auth'
 import { redirect } from 'next/navigation'
 import { prisma } from '../../lib/prisma'
+import DeleteAccount from './DeleteAccount'
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
@@ -405,32 +406,51 @@ export default async function DashboardPage() {
 
       {/* FOOTER */}
       <footer style={{
-        background: 'var(--ink)',
-        color: 'var(--paper)',
-        padding: '40px 60px',
-      }}>
-        <div style={{
-          maxWidth: '1300px',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-          <div style={{
-            fontFamily: '"Playfair Display", serif',
-            fontSize: '24px',
-            fontWeight: 900,
-            letterSpacing: '-1px',
-          }}>Woblyn</div>
-          <div style={{
-            fontFamily: '"IBM Plex Mono", monospace',
-            fontSize: '11px',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.5)',
-          }}>© 2026 · Tous droits réservés</div>
-        </div>
-      </footer>
+  background: 'var(--ink)',
+  color: 'var(--paper)',
+  padding: '40px 60px',
+}}>
+  <div style={{
+    maxWidth: '1300px',
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px',
+  }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+      <div style={{
+        fontFamily: '"Playfair Display", serif',
+        fontSize: '24px',
+        fontWeight: 900,
+        letterSpacing: '-1px',
+      }}>Woblyn</div>
+      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+        <a href="/mentions-legales" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>Mentions légales</a>
+        <a href="/confidentialite" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>Confidentialité</a>
+        <a href="/cgv" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>CGV</a>
+        <a href="/cgu" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>CGU</a>
+      </div>
+    </div>
+    <div style={{
+      paddingTop: '20px',
+      borderTop: '1px solid rgba(255,255,255,0.1)',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      gap: '16px',
+    }}>
+      <div style={{
+        fontFamily: '"IBM Plex Mono", monospace',
+        fontSize: '11px',
+        letterSpacing: '2px',
+        textTransform: 'uppercase',
+        color: 'rgba(255,255,255,0.5)',
+      }}>© 2026 · Tous droits réservés</div>
+      <DeleteAccount />
+    </div>
+  </div>
+</footer>
 
     </div>
   )
