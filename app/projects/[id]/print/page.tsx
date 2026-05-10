@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { SECTION_KEYS, SECTION_LABELS_FR, SECTION_LABELS_EN, SectionKey } from '../../../../lib/prompts'
 import ReactMarkdown from 'react-markdown'
@@ -60,14 +60,39 @@ export default function PrintPage() {
       .catch(() => router.push('/dashboard'))
   }, [id, router])
 
-  // Auto-print après chargement
-  useEffect(() => {
-    if (!loading && project) {
-      setTimeout(() => {
-        window.print()
-      }, 1500) // délai pour que les fonts et le contenu soient chargés
-    }
-  }, [loading, project])
+  const containerRef = useRef<HTMLDivElement>(null)
+const isPdfMode = searchParams.get('pdf') === '1'
+const [generating, setGenerating] = useState(false)
+
+useEffect(() => {
+  if (!loading && project && isPdfMode && containerRef.current && !generating) {
+    setGenerating(true)
+    // Délai pour les fonts/charts
+    setTimeout(async () => {
+      try {
+        const html2pdf = (await import('html2pdf.js')).default
+        const filename = `${project.name.replace(/[^a-z0-9]/gi, '_')}_${lang.toUpperCase()}.pdf`
+        
+        const opt: any = {
+  margin: 0,
+  filename,
+  image: { type: 'jpeg', quality: 0.98 },
+  html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+  jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+  pagebreak: { mode: ['css', 'legacy'], before: '.print-page' },
+}
+        
+        await html2pdf().set(opt).from(containerRef.current).save()
+        
+        // Fermer l'onglet après téléchargement
+        setTimeout(() => window.close(), 1000)
+      } catch (err) {
+        console.error('PDF generation error:', err)
+        alert('Erreur lors de la génération du PDF')
+      }
+    }, 2500)
+  }
+}, [loading, project, isPdfMode])
 
   if (loading || !project) {
     return (
@@ -96,35 +121,55 @@ export default function PrintPage() {
   const labels = lang === 'en' ? SECTION_LABELS_EN : SECTION_LABELS_FR
 
   return (
-    <div style={{ background: 'white' }}>
+  <div ref={containerRef} style={{ background: 'white' }}>
       
-      {/* Bouton flottant pour relancer l'impression */}
-      <div className="no-print" style={{
-        position: 'fixed', top: 20, right: 20, zIndex: 1000,
-        background: '#0d1b2a', color: 'white', padding: '12px 20px',
-        fontFamily: '"IBM Plex Mono", monospace', fontSize: '12px',
-        letterSpacing: '1px', fontWeight: 600,
-        display: 'flex', gap: '12px', alignItems: 'center',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+      {!isPdfMode && (
+  <div className="no-print" style={{
+    position: 'fixed', top: 20, left: 20, right: 20, zIndex: 1000,
+    background: '#0d1b2a', color: 'white', padding: '20px 24px',
+    fontFamily: '"IBM Plex Mono", monospace', fontSize: '12px',
+    boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+    maxWidth: '720px', margin: '0 auto',
+  }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+      <span style={{ letterSpacing: '2px', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', color: '#a85b32' }}>
+        ✦ Aperçu PDF
+      </span>
+      <button onClick={() => router.push(`/projects/${id}/export`)} style={{
+        background: 'transparent', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.3)',
+        padding: '6px 12px', fontSize: '10px', fontWeight: 600,
+        letterSpacing: '1px', textTransform: 'uppercase',
+        cursor: 'pointer', fontFamily: 'inherit',
       }}>
-        <span>📄 Imprimer pour générer le PDF</span>
-        <button onClick={() => window.print()} style={{
-          background: '#a85b32', color: 'white', border: 'none',
-          padding: '8px 14px', fontSize: '11px', fontWeight: 600,
-          letterSpacing: '1px', textTransform: 'uppercase',
-          cursor: 'pointer', fontFamily: 'inherit',
-        }}>
-          Imprimer
-        </button>
-        <button onClick={() => router.push(`/projects/${id}/export`)} style={{
-          background: 'transparent', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.3)',
-          padding: '8px 14px', fontSize: '11px', fontWeight: 600,
-          letterSpacing: '1px', textTransform: 'uppercase',
-          cursor: 'pointer', fontFamily: 'inherit',
-        }}>
-          ← Retour
-        </button>
-      </div>
+        ← Retour
+      </button>
+    </div>
+  </div>
+)}
+
+{isPdfMode && generating && (
+  <div style={{
+    position: 'fixed', inset: 0, background: 'rgba(13,27,42,0.95)',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    zIndex: 9999, color: 'white', flexDirection: 'column', gap: '20px',
+  }}>
+    <div style={{
+      fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px',
+      letterSpacing: '4px', color: '#a85b32', textTransform: 'uppercase',
+    }}>
+      ✦ Génération en cours
+    </div>
+    <div style={{
+      fontFamily: '"Playfair Display", serif', fontSize: '40px', fontWeight: 900,
+      letterSpacing: '-1px', textAlign: 'center',
+    }}>
+      Création de votre PDF...
+    </div>
+    <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)' }}>
+      Cela prend 10 à 30 secondes selon la longueur du document
+    </div>
+  </div>
+)}
 
       {/* COUVERTURE */}
       <div className={`print-page template-${baseTheme.style}`} style={{
