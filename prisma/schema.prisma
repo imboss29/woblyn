@@ -85,6 +85,7 @@ model Project {
   fontSize     String? @default("normal")
   logoUrl      String?
   tagline      String?
+  language     String? @default("fr")
   
   isPaid      Boolean  @default(false)
   paidAt      DateTime?

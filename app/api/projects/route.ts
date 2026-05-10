@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
     }
 
-    const { name, formData } = await req.json()
+    const { name, formData, language } = await req.json()
 
     if (!name) {
       return NextResponse.json({ error: 'Nom du projet requis' }, { status: 400 })
@@ -22,6 +22,7 @@ export async function POST(req: Request) {
         userId: session.user.id,
         name,
         formData,
+        language: language || 'fr',
         status: 'DRAFT',
       },
     })

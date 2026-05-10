@@ -7,10 +7,16 @@ import { FormData } from '../../../../../lib/prompts'
 
 export const maxDuration = 30
 
-const styles = {
+const stylesFR = {
   impact: 'percutant et direct, en 6 à 10 mots maximum, ton confiant',
   poetic: 'évocateur et inspirant, en 6 à 12 mots, un peu poétique',
   corporate: 'sobre et institutionnel, en 6 à 12 mots, ton sérieux',
+}
+
+const stylesEN = {
+  impact: 'punchy and direct, 6 to 10 words maximum, confident tone',
+  poetic: 'evocative and inspiring, 6 to 12 words, slightly poetic',
+  corporate: 'sober and institutional, 6 to 12 words, serious tone',
 }
 
 export async function POST(
@@ -21,7 +27,7 @@ export async function POST(
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
 
-    const { style } = await req.json() as { style: keyof typeof styles }
+    const { style } = await req.json() as { style: keyof typeof stylesFR }
 
     const project = await prisma.project.findUnique({ where: { id: params.id } })
     if (!project) return NextResponse.json({ error: 'Introuvable' }, { status: 404 })
@@ -30,8 +36,32 @@ export async function POST(
     if (!project.formData) return NextResponse.json({ error: 'Données manquantes' }, { status: 400 })
 
     const data = project.formData as unknown as FormData
+    const lang = ((project.language as 'fr' | 'en') || 'fr')
 
-    const prompt = `Tu es un expert en branding et copywriting.
+    const prompt = lang === 'en' ? `You are a branding and copywriting expert.
+
+Based on the following information, generate ONE single tagline for the cover of a business plan.
+
+Project: ${data.projectName}
+Activity: ${data.activity}
+Sector: ${data.sector}
+Problem solved: ${data.problem}
+Solution: ${data.solution}
+Competitive advantage: ${data.advantage}
+
+REQUESTED STYLE: ${stylesEN[style]}
+
+RULES:
+- In English
+- No quotes
+- No final period
+- No preamble
+- Return ONLY the tagline, nothing else
+- Avoid clichés ("revolutionize", "reinvent the future")
+
+Example of good tagline: "Premium coffee, delivered every morning." or "For those who don't sell their time."
+
+Now generate the tagline for this project:` : `Tu es un expert en branding et copywriting.
 
 À partir des informations suivantes, génère UNE SEULE accroche pour la couverture d'un business plan.
 
@@ -42,7 +72,7 @@ Problème résolu : ${data.problem}
 Solution : ${data.solution}
 Avantage concurrentiel : ${data.advantage}
 
-STYLE DEMANDÉ : ${styles[style]}
+STYLE DEMANDÉ : ${stylesFR[style]}
 
 RÈGLES :
 - En français

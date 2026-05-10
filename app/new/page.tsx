@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 type FormData = {
+  // 0. Langue
+  language: string
   // 1. Projet
   projectName: string
   activity: string
@@ -49,6 +51,7 @@ type FormData = {
 }
 
 const initialForm: FormData = {
+  language: 'fr',
   projectName: '', activity: '', sector: '', legalStatus: '',
   problem: '', solution: '', advantage: '', timing: '',
   targetCustomers: '', geographicZone: '', competitors: '', marketSize: '',
@@ -80,7 +83,7 @@ export default function NewProjectPage() {
       const res = await fetch('/api/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.projectName, formData: form }),
+        body: JSON.stringify({ name: form.projectName, formData: form, language: form.language }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
@@ -140,6 +143,36 @@ export default function NewProjectPage() {
 function Step1({ form, update }: any) {
   return <>
     <Header cat="01 — Le projet" title="Parlez-nous de votre projet." />
+
+    <div style={{ marginBottom: '24px', padding: '20px', background: '#f4f1ea', border: '1px solid #d4cfc0' }}>
+      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, marginBottom: '12px', fontFamily: '"IBM Plex Mono", monospace', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#a85b32' }}>
+        ✦ Langue du business plan
+      </label>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+        <button type="button" onClick={() => update('language', 'fr')} style={{
+          padding: '14px', border: `2px solid ${form.language === 'fr' ? '#0d1b2a' : '#d4cfc0'}`,
+          background: form.language === 'fr' ? '#0d1b2a' : 'white',
+          color: form.language === 'fr' ? 'white' : '#0d1b2a',
+          fontSize: '14px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+        }}>
+          🇫🇷 Français
+        </button>
+        <button type="button" onClick={() => update('language', 'en')} style={{
+          padding: '14px', border: `2px solid ${form.language === 'en' ? '#0d1b2a' : '#d4cfc0'}`,
+          background: form.language === 'en' ? '#0d1b2a' : 'white',
+          color: form.language === 'en' ? 'white' : '#0d1b2a',
+          fontSize: '14px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+        }}>
+          🇬🇧 English
+        </button>
+      </div>
+      <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '10px', lineHeight: 1.5 }}>
+        Vous pouvez répondre aux questions dans la langue de votre choix. L'IA générera le business plan dans la langue sélectionnée ici.
+      </div>
+    </div>
+
     <Field label="Nom du projet ou de l'entreprise" value={form.projectName} onChange={(v: string) => update('projectName', v)} placeholder="Ex: Bistrot Lumière" />
     <Field label="Décrivez votre activité en 1-2 phrases" value={form.activity} onChange={(v: string) => update('activity', v)} placeholder="Ex: Restaurant bistronomique avec produits locaux..." textarea />
     <Select label="Secteur d'activité" value={form.sector} onChange={(v: string) => update('sector', v)} options={[
@@ -237,6 +270,7 @@ function Step9({ form, update }: any) {
 
 function Step10({ form }: { form: FormData }) {
   const items = [
+    ['Langue', form.language === 'en' ? '🇬🇧 English' : '🇫🇷 Français'],
     ['Projet', form.projectName],
     ['Activité', form.activity?.substring(0, 60) + (form.activity?.length > 60 ? '...' : '')],
     ['Secteur', form.sector],

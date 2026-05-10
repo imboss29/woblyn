@@ -39,7 +39,8 @@ export async function POST(
 const sections: Record<string, string> = {}
 
 for (const key of SECTION_KEYS) {
-  const prompt = prompts[key](formData)
+  const lang = ((project.language as 'fr' | 'en') || 'fr')
+  const prompt = prompts[key](formData, lang)
   const text = await generateSection(prompt)
   sections[key] = text
   // Petit délai entre chaque appel pour rester safe

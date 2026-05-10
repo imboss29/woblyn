@@ -29,7 +29,8 @@ export async function POST(
     if (!project.formData) return NextResponse.json({ error: 'Données manquantes' }, { status: 400 })
 
     const formData = project.formData as unknown as FormData
-    const prompt = prompts[sectionKey](formData)
+    const lang = ((project.language as 'fr' | 'en') || 'fr')
+    const prompt = prompts[sectionKey](formData, lang)
     const newContent = await generateSection(prompt)
 
     const currentContent = (project.content as Record<string, string>) || {}
