@@ -347,9 +347,15 @@ export default function EditorPage() {
             )}
 
             <div style={{ marginTop: '60px', paddingTop: '20px', borderTop: `1px solid ${text}20`, display: 'flex', justifyContent: 'space-between', fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.6 }}>
-              <span>Woblyn · Business Plan</span>
-              <span>Page {currentIndex + 1}</span>
-            </div>
+  <span>{project.name} · Business Plan</span>
+  <span>Page {currentIndex + 1}</span>
+</div>
+
+{currentIndex === SECTION_KEYS.length - 1 && (
+  <div style={{ marginTop: '40px', textAlign: 'center', fontFamily: '"IBM Plex Mono", monospace', fontSize: '9px', letterSpacing: '2px', opacity: 0.35, textTransform: 'uppercase' }}>
+    Réalisé avec Woblyn · woblyn.com
+  </div>
+)}
           </div>
         )}
       </main>
