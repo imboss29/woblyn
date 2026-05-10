@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 type FormData = {
@@ -52,6 +52,7 @@ type FormData = {
   primaryColorChoice: string
   visualStyle: string
   hasLogo: string
+  logoUrl: string
 }
 
 const initialForm: FormData = {
@@ -64,7 +65,7 @@ const initialForm: FormData = {
   initialInvestment: '', monthlyCharges: '', fundingSources: '', launchDate: '',
   growthY2: '', growthY3: '', revenueY3: '',
   foundersCount: '', founderProfile: '', hiringPlan: '', keySkills: '',
-  visionY5: '', risks: '', exitStrategy: '', primaryColorChoice: '', visualStyle: '', hasLogo: '',
+  visionY5: '', risks: '', exitStrategy: '', primaryColorChoice: '', visualStyle: '', hasLogo: '', logoUrl: '',
 }
 
 export default function NewProjectPage() {
@@ -274,6 +275,34 @@ function Step9({ form, update }: any) {
 }
 
 function StepVisual({ form, update }: any) {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState(false)
+
+  const handleFileUpload = async (file: File) => {
+    if (!file) return
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('upload_preset', 'woblyn_logos')
+      
+      const res = await fetch('https://api.cloudinary.com/v1_1/dqdwsum2l/image/upload', {
+        method: 'POST',
+        body: formData,
+      })
+      const data = await res.json()
+      if (data.secure_url) {
+        update('logoUrl', data.secure_url)
+      } else {
+        alert('Erreur lors de l\'upload. Réessayez ou utilisez une URL.')
+      }
+    } catch (err) {
+      alert('Erreur de connexion. Réessayez.')
+    } finally {
+      setUploading(false)
+    }
+  }
+
   return <>
     <Header cat="10 — Identité visuelle" title="L'image de votre business plan." />
     
@@ -281,78 +310,168 @@ function StepVisual({ form, update }: any) {
       Personnalisez l'apparence de votre document. Vous pourrez tout modifier ensuite dans l'éditeur.
     </p>
 
-    <div style={{ marginBottom: '24px' }}>
+    {/* STYLE VISUEL avec aperçus */}
+    <div style={{ marginBottom: '32px' }}>
       <label style={labelStyle}>Style visuel souhaité</label>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
         {[
-          { key: 'editorial', name: 'Éditorial', desc: 'Magazine financier' },
-          { key: 'corporate', name: 'Corporate', desc: 'Banque & finance' },
-          { key: 'tech', name: 'Tech', desc: 'Startup minimaliste' },
-          { key: 'premium', name: 'Premium', desc: 'Luxe & cabinet' },
-        ].map(s => (
-          <button key={s.key} type="button" onClick={() => update('visualStyle', s.key)} style={{
-            padding: '16px', border: `2px solid ${form.visualStyle === s.key ? '#0d1b2a' : '#d4cfc0'}`,
-            background: form.visualStyle === s.key ? '#0d1b2a' : 'white',
-            color: form.visualStyle === s.key ? 'white' : '#0d1b2a',
-            cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
-          }}>
-            <div style={{ fontFamily: '"Playfair Display", serif', fontSize: '16px', fontWeight: 700 }}>{s.name}</div>
-            <div style={{ fontSize: '11px', opacity: 0.7, marginTop: '2px' }}>{s.desc}</div>
-          </button>
-        ))}
+          { 
+            key: 'editorial', name: 'Éditorial', desc: 'Magazine financier',
+            preview: { bg: '#f4f1ea', text: '#0d1b2a', accent: '#a85b32', titleFont: 'Playfair Display, serif' }
+          },
+          { 
+            key: 'corporate', name: 'Corporate', desc: 'Banque & finance',
+            preview: { bg: '#ffffff', text: '#0a1933', accent: '#1d4ed8', titleFont: 'Fraunces, serif' }
+          },
+          { 
+            key: 'tech', name: 'Tech', desc: 'Startup minimaliste',
+            preview: { bg: '#fafafa', text: '#171717', accent: '#6366f1', titleFont: 'Inter, sans-serif' }
+          },
+          { 
+            key: 'premium', name: 'Premium', desc: 'Luxe & cabinet',
+            preview: { bg: '#0d0d0d', text: '#f5f1e8', accent: '#c9a558', titleFont: 'Cormorant Garamond, serif' }
+          },
+        ].map(s => {
+          const isActive = form.visualStyle === s.key
+          return (
+            <button key={s.key} type="button" onClick={() => update('visualStyle', s.key)} style={{
+              border: `2px solid ${isActive ? '#0d1b2a' : '#d4cfc0'}`,
+              background: 'white', cursor: 'pointer', fontFamily: 'inherit',
+              padding: 0, overflow: 'hidden',
+            }}>
+              {/* Mini aperçu */}
+              <div style={{
+                background: s.preview.bg, color: s.preview.text,
+                padding: '20px 16px', borderBottom: '1px solid #e5e1d4',
+                minHeight: '120px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+              }}>
+                <div style={{ fontSize: '9px', letterSpacing: '2px', color: s.preview.accent, textTransform: 'uppercase', fontWeight: 600 }}>
+                  Chapitre 01
+                </div>
+                <div style={{ fontFamily: s.preview.titleFont, fontSize: '20px', fontWeight: 700, lineHeight: 1.1 }}>
+                  Executive Summary
+                </div>
+                <div style={{ display: 'flex', gap: '4px', marginTop: '8px' }}>
+                  <div style={{ width: '60%', height: '2px', background: s.preview.accent }} />
+                  <div style={{ width: '20%', height: '2px', background: s.preview.text, opacity: 0.3 }} />
+                </div>
+              </div>
+              {/* Label */}
+              <div style={{
+                padding: '12px 16px',
+                background: isActive ? '#0d1b2a' : 'white',
+                color: isActive ? 'white' : '#0d1b2a',
+                textAlign: 'left',
+              }}>
+                <div style={{ fontFamily: '"Playfair Display", serif', fontSize: '15px', fontWeight: 700 }}>{s.name}</div>
+                <div style={{ fontSize: '11px', opacity: 0.7, marginTop: '2px' }}>{s.desc}</div>
+              </div>
+            </button>
+          )
+        })}
       </div>
     </div>
 
-    <div style={{ marginBottom: '24px' }}>
+    {/* COULEUR avec presets + roue + hex */}
+    <div style={{ marginBottom: '32px' }}>
       <label style={labelStyle}>Couleur d'accent dominante</label>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+      
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: '8px', marginBottom: '12px' }}>
         {[
-          { key: 'terracotta', name: 'Terracotta', color: '#a85b32' },
-          { key: 'navy', name: 'Bleu marine', color: '#1d4ed8' },
-          { key: 'forest', name: 'Vert forêt', color: '#166534' },
-          { key: 'gold', name: 'Or', color: '#c9a558' },
-          { key: 'burgundy', name: 'Bordeaux', color: '#991b1b' },
-          { key: 'graphite', name: 'Graphite', color: '#374151' },
-          { key: 'plum', name: 'Prune', color: '#6b21a8' },
-          { key: 'teal', name: 'Sarcelle', color: '#0f766e' },
+          { name: 'Terracotta', color: '#a85b32' },
+          { name: 'Bleu marine', color: '#1d4ed8' },
+          { name: 'Vert forêt', color: '#166534' },
+          { name: 'Or', color: '#c9a558' },
+          { name: 'Bordeaux', color: '#991b1b' },
+          { name: 'Graphite', color: '#374151' },
+          { name: 'Prune', color: '#6b21a8' },
+          { name: 'Sarcelle', color: '#0f766e' },
         ].map(c => (
-          <button key={c.key} type="button" onClick={() => update('primaryColorChoice', c.key)} style={{
-            padding: '12px 8px', border: `2px solid ${form.primaryColorChoice === c.key ? '#0d1b2a' : '#d4cfc0'}`,
-            background: form.primaryColorChoice === c.key ? '#0d1b2a' : 'white',
-            color: form.primaryColorChoice === c.key ? 'white' : '#0d1b2a',
-            cursor: 'pointer', fontFamily: 'inherit', textAlign: 'center',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
-          }}>
-            <span style={{ width: '24px', height: '24px', background: c.color, borderRadius: '50%' }} />
-            <span style={{ fontSize: '11px', fontWeight: 600 }}>{c.name}</span>
-          </button>
+          <button key={c.color} type="button" 
+            onClick={() => update('primaryColorChoice', c.color)} 
+            title={c.name}
+            style={{
+              width: '100%', aspectRatio: '1', background: c.color,
+              border: `3px solid ${form.primaryColorChoice === c.color ? '#0d1b2a' : 'transparent'}`,
+              cursor: 'pointer', padding: 0,
+            }} />
         ))}
       </div>
-    </div>
 
-    <div style={{ marginBottom: '8px' }}>
-      <label style={labelStyle}>Avez-vous déjà un logo ?</label>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-        <button type="button" onClick={() => update('hasLogo', 'yes')} style={{
-          padding: '14px', border: `2px solid ${form.hasLogo === 'yes' ? '#0d1b2a' : '#d4cfc0'}`,
-          background: form.hasLogo === 'yes' ? '#0d1b2a' : 'white',
-          color: form.hasLogo === 'yes' ? 'white' : '#0d1b2a',
-          fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-        }}>
-          ✓ Oui, j'ai un logo
-        </button>
-        <button type="button" onClick={() => update('hasLogo', 'no')} style={{
-          padding: '14px', border: `2px solid ${form.hasLogo === 'no' ? '#0d1b2a' : '#d4cfc0'}`,
-          background: form.hasLogo === 'no' ? '#0d1b2a' : 'white',
-          color: form.hasLogo === 'no' ? 'white' : '#0d1b2a',
-          fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-        }}>
-          Pas encore
-        </button>
+      <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '16px' }}>
+        <input 
+          type="color" 
+          value={form.primaryColorChoice && form.primaryColorChoice.startsWith('#') ? form.primaryColorChoice : '#a85b32'} 
+          onChange={(e) => update('primaryColorChoice', e.target.value)}
+          style={{ width: '50px', height: '40px', border: '1px solid #d4cfc0', cursor: 'pointer', padding: 0 }}
+        />
+        <input 
+          type="text" 
+          value={form.primaryColorChoice || ''} 
+          onChange={(e) => update('primaryColorChoice', e.target.value)}
+          placeholder="#a85b32"
+          style={{ flex: 1, padding: '10px', border: '1px solid #d4cfc0', fontSize: '13px', fontFamily: '"IBM Plex Mono", monospace', outline: 'none' }}
+        />
+        <div style={{ 
+          width: '40px', height: '40px', 
+          background: form.primaryColorChoice && form.primaryColorChoice.startsWith('#') ? form.primaryColorChoice : 'transparent',
+          border: '1px solid #d4cfc0',
+        }} />
       </div>
       <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '8px', lineHeight: 1.5 }}>
-        Si oui, vous pourrez l'uploader directement dans l'éditeur après génération.
+        Choisissez parmi les 8 couleurs proposées, utilisez la roue chromatique ou entrez un code hexadécimal (ex: #ff5733).
       </div>
+    </div>
+
+    {/* LOGO upload */}
+    <div style={{ marginBottom: '8px' }}>
+      <label style={labelStyle}>Logo de votre entreprise (optionnel)</label>
+      
+      {form.logoUrl ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: '#f4f1ea', border: '1px solid #d4cfc0', marginBottom: '12px' }}>
+          <img src={form.logoUrl} alt="Logo" style={{ height: '60px', maxWidth: '120px', objectFit: 'contain' }} />
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>✓ Logo uploadé</div>
+            <button type="button" onClick={() => update('logoUrl', '')} style={{
+              fontSize: '11px', color: '#b91c1c', background: 'transparent', border: 'none',
+              textDecoration: 'underline', cursor: 'pointer', padding: 0, fontFamily: 'inherit',
+            }}>
+              Supprimer
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading} style={{
+            width: '100%', padding: '24px', border: '2px dashed #d4cfc0', background: 'white',
+            cursor: uploading ? 'wait' : 'pointer', fontFamily: 'inherit', marginBottom: '12px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
+          }}>
+            <div style={{ fontSize: '24px' }}>📎</div>
+            <div style={{ fontSize: '13px', fontWeight: 600 }}>
+              {uploading ? 'Upload en cours...' : 'Cliquez pour uploader un fichier'}
+            </div>
+            <div style={{ fontSize: '11px', color: '#6b7280' }}>PNG, JPG, SVG · max 5 Mo</div>
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={(e) => e.target.files?.[0] && handleFileUpload(e.target.files[0])}
+          />
+
+          <div style={{ fontSize: '11px', color: '#6b7280', textAlign: 'center', margin: '8px 0' }}>— ou —</div>
+
+          <input
+            type="url"
+            value={form.logoUrl || ''}
+            onChange={(e) => update('logoUrl', e.target.value)}
+            placeholder="Coller une URL d'image (https://...)"
+            style={{ width: '100%', padding: '12px', border: '1px solid #d4cfc0', fontSize: '13px', outline: 'none', fontFamily: 'inherit' }}
+          />
+        </>
+      )}
     </div>
   </>
 }
