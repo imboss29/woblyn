@@ -82,7 +82,8 @@ useEffect(() => {
   pagebreak: { mode: ['css', 'legacy'], before: '.print-page' },
 }
         
-        await html2pdf().set(opt).from(containerRef.current).save()
+        if (!containerRef.current) return
+await html2pdf().set(opt).from(containerRef.current).save()
         
         // Fermer l'onglet après téléchargement
         setTimeout(() => window.close(), 1000)
