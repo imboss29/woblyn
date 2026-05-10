@@ -61,24 +61,23 @@ export default function EditorPage() {
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
-  fetch(`/api/projects/${id}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.error) { router.push('/dashboard'); return }
-      // Protection : si le projet n'est pas payé, on redirige vers la preview
-      if (!data.isPaid) { router.push(`/projects/${id}`); return }
-      setProject(data)
-      setLoading(false)
-    })
-    .catch(() => router.push('/dashboard'))
-}, [id, router])
+    fetch(`/api/projects/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) { router.push('/dashboard'); return }
+        if (!data.isPaid) { router.push(`/projects/${id}`); return }
+        setProject(data)
+        setLoading(false)
+      })
+      .catch(() => router.push('/dashboard'))
+  }, [id, router])
 
-useEffect(() => {
-  if (!loading && project) {
-    const done = localStorage.getItem('woblyn-tutorial-done')
-    if (!done) setShowTutorial(true)
-  }
-}, [loading, project])
+  useEffect(() => {
+    if (!loading && project) {
+      const done = localStorage.getItem('woblyn-tutorial-done')
+      if (!done) setShowTutorial(true)
+    }
+  }, [loading, project])
 
   const saveSection = useCallback((sectionKey: SectionKey, content: string) => {
     setSaveStatus('saving')
@@ -210,7 +209,9 @@ useEffect(() => {
   const currentIndex = isCover ? -1 : SECTION_KEYS.indexOf(activeSection as SectionKey)
 
   return (
-    <div style={{ minHeight: '100vh', background: '#e8e4d8', display: 'flex' }} className="editor-root">
+    <>
+      {showTutorial && <Tutorial onClose={() => setShowTutorial(false)} />}
+      <div style={{ minHeight: '100vh', background: '#e8e4d8', display: 'flex' }} className="editor-root">
 
       <aside data-tour="sidebar" style={{ width: '260px', background: '#0d1b2a', color: '#f4f1ea', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
@@ -269,16 +270,16 @@ useEffect(() => {
 
         <div style={{ padding: '20px 24px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <button data-tour="export" onClick={exportPDF} style={{
-  width: '100%', background: '#a85b32', color: 'white', border: 'none', padding: '12px',
+            width: '100%', background: '#a85b32', color: 'white', border: 'none', padding: '12px',
             fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px',
             textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
           }}>↓ Télécharger PDF</button>
           <button onClick={() => setShowTutorial(true)} style={{
-  width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.6)',
-  border: '1px solid rgba(255,255,255,0.15)', padding: '10px',
-  fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '1.5px',
-  textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
-}}>? Voir le tutoriel</button>
+            width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.6)',
+            border: '1px solid rgba(255,255,255,0.15)', padding: '10px',
+            fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '1.5px',
+            textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
+          }}>? Voir le tutoriel</button>
           <button onClick={deleteProject} style={{
             width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.15)', padding: '10px',
             fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '1.5px',
@@ -288,29 +289,29 @@ useEffect(() => {
       </aside>
 
       {!isCover && (
-  <div data-tour="zoom" style={{
-    position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
-    background: 'white', border: '1px solid #d4cfc0', borderRadius: '24px',
-    padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '12px',
-    boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 100,
-  }}>
-    <button onClick={() => setZoom(z => Math.max(z - 10, 50))} style={zoomBtnStyle}>−</button>
-    <input
-      type="range" min="50" max="150" step="5" value={zoom}
-      onChange={(e) => setZoom(Number(e.target.value))}
-      style={{ width: '120px', cursor: 'pointer' }}
-    />
-    <button onClick={() => setZoom(z => Math.min(z + 10, 150))} style={zoomBtnStyle}>+</button>
-    <span style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, minWidth: '45px', textAlign: 'center' }}>
-      {zoom}%
-    </span>
-    <button onClick={() => setZoom(100)} style={{
-      ...zoomBtnStyle, fontSize: '10px', letterSpacing: '1px', padding: '6px 10px',
-    }}>
-      RESET
-    </button>
-  </div>
-)}
+        <div data-tour="zoom" style={{
+          position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
+          background: 'white', border: '1px solid #d4cfc0', borderRadius: '24px',
+          padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '12px',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 100,
+        }}>
+          <button onClick={() => setZoom(z => Math.max(z - 10, 50))} style={zoomBtnStyle}>−</button>
+          <input
+            type="range" min="50" max="150" step="5" value={zoom}
+            onChange={(e) => setZoom(Number(e.target.value))}
+            style={{ width: '120px', cursor: 'pointer' }}
+          />
+          <button onClick={() => setZoom(z => Math.min(z + 10, 150))} style={zoomBtnStyle}>+</button>
+          <span style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, minWidth: '45px', textAlign: 'center' }}>
+            {zoom}%
+          </span>
+          <button onClick={() => setZoom(100)} style={{
+            ...zoomBtnStyle, fontSize: '10px', letterSpacing: '1px', padding: '6px 10px',
+          }}>
+            RESET
+          </button>
+        </div>
+      )}
 
       <main data-tour="document" style={{ flex: 1, padding: '60px 40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', overflow: 'auto', background: '#e8e4d8' }}>
         {isCover ? (
@@ -325,11 +326,11 @@ useEffect(() => {
           />
         ) : (
           <div className={`document-page template-${baseTheme.style}`} style={{
-  width: '210mm', minHeight: '297mm', maxWidth: '100%',
-  background: bg, padding: '60px 50px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
-  fontFamily: `"${bodyFont}", sans-serif`, color: text, fontSize,
-  transform: `scale(${zoom / 100})`, transformOrigin: 'top center', transition: 'transform 0.2s',
-}}>
+            width: '210mm', minHeight: '297mm', maxWidth: '100%',
+            background: bg, padding: '60px 50px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+            fontFamily: `"${bodyFont}", sans-serif`, color: text, fontSize,
+            transform: `scale(${zoom / 100})`, transformOrigin: 'top center', transition: 'transform 0.2s',
+          }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px', borderBottom: `1px solid ${text}20`, marginBottom: '40px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 {project.logoUrl && <img src={project.logoUrl} alt="" style={{ height: '32px' }} />}
@@ -389,34 +390,34 @@ useEffect(() => {
             )}
 
             <div style={{ marginTop: '60px', paddingTop: '20px', borderTop: `1px solid ${text}20`, display: 'flex', justifyContent: 'space-between', fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase', opacity: 0.6 }}>
-  <span>{project.name} · Business Plan</span>
-  <span>Page {currentIndex + 1}</span>
-</div>
+              <span>{project.name} · Business Plan</span>
+              <span>Page {currentIndex + 1}</span>
+            </div>
 
-{currentIndex === SECTION_KEYS.length - 1 && (
-  <div style={{ marginTop: '40px', textAlign: 'center', fontFamily: '"IBM Plex Mono", monospace', fontSize: '9px', letterSpacing: '2px', opacity: 0.35, textTransform: 'uppercase' }}>
-    Réalisé avec Woblyn · woblyn.com
-  </div>
-)}
+            {currentIndex === SECTION_KEYS.length - 1 && (
+              <div style={{ marginTop: '40px', textAlign: 'center', fontFamily: '"IBM Plex Mono", monospace', fontSize: '9px', letterSpacing: '2px', opacity: 0.35, textTransform: 'uppercase' }}>
+                Réalisé avec Woblyn · woblyn.com
+              </div>
+            )}
           </div>
         )}
       </main>
 
       <aside style={{ width: '320px', background: 'white', borderLeft: '1px solid #d4cfc0', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', flexShrink: 0 }}>
         <div style={{ display: 'flex', borderBottom: '1px solid #d4cfc0' }}>
-  <button data-tour="style-tab" onClick={() => setRightTab('style')} style={{
-    flex: 1, padding: '16px', background: rightTab === 'style' ? '#0d1b2a' : 'transparent',
-    color: rightTab === 'style' ? 'white' : '#0d1b2a', border: 'none',
-    fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
-    letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
-  }}>Style</button>
-  <button data-tour="ai-tab" onClick={() => setRightTab('ai')} style={{
-    flex: 1, padding: '16px', background: rightTab === 'ai' ? '#0d1b2a' : 'transparent',
-    color: rightTab === 'ai' ? 'white' : '#0d1b2a', border: 'none',
-    fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
-    letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
-  }}>✦ IA</button>
-</div>
+          <button data-tour="style-tab" onClick={() => setRightTab('style')} style={{
+            flex: 1, padding: '16px', background: rightTab === 'style' ? '#0d1b2a' : 'transparent',
+            color: rightTab === 'style' ? 'white' : '#0d1b2a', border: 'none',
+            fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
+            letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
+          }}>Style</button>
+          <button data-tour="ai-tab" onClick={() => setRightTab('ai')} style={{
+            flex: 1, padding: '16px', background: rightTab === 'ai' ? '#0d1b2a' : 'transparent',
+            color: rightTab === 'ai' ? 'white' : '#0d1b2a', border: 'none',
+            fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
+            letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
+          }}>✦ IA</button>
+        </div>
 
         {rightTab === 'ai' ? (
           <div style={{ padding: '24px' }}>
@@ -612,6 +613,7 @@ useEffect(() => {
 
       <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?family=${[titleFont, bodyFont].filter((f, i, a) => a.indexOf(f) === i).map(f => f.replace(/ /g, '+')).join('&family=')}&display=swap`} />
     </div>
+    </>
   )
 }
 
