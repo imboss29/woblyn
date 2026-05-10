@@ -16,6 +16,9 @@ type Project = {
   formData: any
   isPaid: boolean
   language: string | null
+  hasTranslation: boolean
+  contentEN: Record<string, string> | null
+  contentFR: Record<string, string> | null
   theme: string
   bgColor: string | null
   textColor: string | null
@@ -118,6 +121,22 @@ export default function EditorPage() {
     } catch (err: any) { alert(err.message) }
     finally { setAiAction(null) }
   }
+
+  const handleTranslate = async () => {
+  if (!project) return
+  if (!confirm(`Lancer la traduction en ${project.language === 'fr' ? 'anglais' : 'français'} ? Cela prend environ 3-5 minutes.`)) return
+  setAiAction('translate')
+  try {
+    const res = await fetch(`/api/projects/${id}/translate`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+    })
+    const data = await res.json()
+    if (!res.ok) throw new Error(data.error)
+    alert('Traduction terminée ! Rechargez la page pour voir les 2 versions.')
+    window.location.reload()
+  } catch (err: any) { alert(err.message) }
+  finally { setAiAction(null) }
+}
 
   const handleImprove = async (action: 'shorten' | 'expand' | 'formalize' | 'simplify') => {
     if (!project || activeSection === 'cover') return
@@ -274,13 +293,6 @@ export default function EditorPage() {
         </ul>
       </div>
 
-      <div style={{
-        background: '#fef3c7', padding: '14px', marginBottom: '24px',
-        fontSize: '12px', color: '#78350f', lineHeight: 1.5,
-      }}>
-        ⚠️ Cette fonctionnalité sera bientôt disponible avec paiement automatisé. En attendant, contactez-nous à <strong>contact@woblyn.com</strong> pour l'activer manuellement.
-      </div>
-
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <div style={{ fontFamily: '"Playfair Display", serif', fontSize: '32px', fontWeight: 900, color: '#a85b32' }}>
@@ -291,23 +303,23 @@ export default function EditorPage() {
           </div>
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
-          <button onClick={() => setShowTranslateModal(false)} style={{
-            background: 'transparent', border: '1px solid #0d1b2a', color: '#0d1b2a',
-            padding: '12px 20px', fontSize: '12px', fontWeight: 600,
-            letterSpacing: '1.5px', textTransform: 'uppercase',
-            cursor: 'pointer', fontFamily: 'inherit',
-          }}>
-            Plus tard
-          </button>
-          <a href="mailto:contact@woblyn.com?subject=Traduction de mon business plan" style={{
-            background: '#a85b32', color: 'white',
-            padding: '12px 20px', fontSize: '12px', fontWeight: 600,
-            letterSpacing: '1.5px', textTransform: 'uppercase',
-            cursor: 'pointer', fontFamily: 'inherit', textDecoration: 'none',
-          }}>
-            Contacter →
-          </a>
-        </div>
+  <button onClick={() => setShowTranslateModal(false)} style={{
+    background: 'transparent', border: '1px solid #0d1b2a', color: '#0d1b2a',
+    padding: '12px 20px', fontSize: '12px', fontWeight: 600,
+    letterSpacing: '1.5px', textTransform: 'uppercase',
+    cursor: 'pointer', fontFamily: 'inherit',
+  }}>
+    Plus tard
+  </button>
+  <button onClick={() => alert('Stripe sera bientôt activé. La traduction se lancera automatiquement après paiement.')} style={{
+    background: '#a85b32', color: 'white', border: 'none',
+    padding: '12px 20px', fontSize: '12px', fontWeight: 600,
+    letterSpacing: '1.5px', textTransform: 'uppercase',
+    cursor: 'pointer', fontFamily: 'inherit',
+  }}>
+    Payer 39€ →
+  </button>
+</div>
       </div>
     </div>
   </div>
@@ -354,14 +366,25 @@ export default function EditorPage() {
             fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px',
             textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
           }}>↓ Télécharger PDF</button>
-          <button onClick={() => setShowTranslateModal(true)} style={{
-  width: '100%', background: 'transparent', color: '#a85b32',
-  border: '1px solid #a85b32', padding: '10px',
-  fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600, letterSpacing: '1.5px',
-  textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
-}}>
-  ✦ Traduire en {project.language === 'fr' ? 'EN' : 'FR'} (+39€)
-</button>
+          {project.hasTranslation ? (
+  <button onClick={handleTranslate} disabled={!!aiAction} style={{
+    width: '100%', background: '#a85b32', color: 'white', border: 'none', padding: '12px',
+    fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px',
+    textTransform: 'uppercase', cursor: aiAction ? 'wait' : 'pointer', marginBottom: '8px',
+    opacity: aiAction ? 0.7 : 1,
+  }}>
+    {aiAction === 'translate' ? 'Traduction en cours...' : `✦ Lancer traduction ${project.language === 'fr' ? 'EN' : 'FR'}`}
+  </button>
+) : (
+  <button onClick={() => setShowTranslateModal(true)} style={{
+    width: '100%', background: 'transparent', color: '#a85b32',
+    border: '1px solid #a85b32', padding: '10px',
+    fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600, letterSpacing: '1.5px',
+    textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
+  }}>
+    ✦ Traduire en {project.language === 'fr' ? 'EN' : 'FR'} (+39€)
+  </button>
+)}
           <button onClick={() => setShowTutorial(true)} style={{
             width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.6)',
             border: '1px solid rgba(255,255,255,0.15)', padding: '10px',
