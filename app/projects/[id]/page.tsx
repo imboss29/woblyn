@@ -32,35 +32,74 @@ export default async function ProjectPage({ params }: { params: { id: string } }
         </div>
 
         <div style={{
-          background: 'var(--ink)',
-          color: 'var(--paper)',
-          padding: '48px',
-          marginBottom: '24px',
-        }}>
-          <div style={{
-            fontFamily: '"IBM Plex Mono", monospace',
-            fontSize: '11px',
-            letterSpacing: '3px',
-            color: '#a85b32',
-            textTransform: 'uppercase',
-            marginBottom: '12px',
-          }}>
-            Business Plan · {isPaid ? 'Document complet' : 'Aperçu gratuit'}
-          </div>
-          <h1 style={{
-            fontFamily: '"Playfair Display", serif',
-            fontSize: '56px',
-            fontWeight: 900,
-            letterSpacing: '-2px',
-            lineHeight: 1,
-            marginBottom: '12px',
-          }}>
-            {project.name}
-          </h1>
-          <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: '"IBM Plex Mono", monospace', letterSpacing: '1px', textTransform: 'uppercase' }}>
-            Généré le {new Date(project.updatedAt).toLocaleDateString('fr-FR')}
-          </div>
-        </div>
+  background: 'var(--ink)',
+  color: 'var(--paper)',
+  padding: '48px',
+  marginBottom: '24px',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  gap: '32px',
+  flexWrap: 'wrap',
+}}>
+  <div style={{ flex: 1, minWidth: '280px' }}>
+    <div style={{
+      fontFamily: '"IBM Plex Mono", monospace',
+      fontSize: '11px',
+      letterSpacing: '3px',
+      color: '#a85b32',
+      textTransform: 'uppercase',
+      marginBottom: '12px',
+    }}>
+      Business Plan · {isPaid ? 'Document complet' : 'Aperçu gratuit'}
+    </div>
+    <h1 style={{
+      fontFamily: '"Playfair Display", serif',
+      fontSize: '56px',
+      fontWeight: 900,
+      letterSpacing: '-2px',
+      lineHeight: 1,
+      marginBottom: '12px',
+    }}>
+      {project.name}
+    </h1>
+    <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', fontFamily: '"IBM Plex Mono", monospace', letterSpacing: '1px', textTransform: 'uppercase' }}>
+      Généré le {new Date(project.updatedAt).toLocaleDateString('fr-FR')}
+    </div>
+  </div>
+
+  {isPaid ? (
+    <a href={`/projects/${project.id}/edit`} style={{
+      background: '#a85b32',
+      color: 'white',
+      padding: '16px 24px',
+      fontSize: '13px',
+      fontWeight: 600,
+      letterSpacing: '1.5px',
+      textTransform: 'uppercase',
+      textDecoration: 'none',
+      fontFamily: '"IBM Plex Mono", monospace',
+      whiteSpace: 'nowrap',
+    }}>
+      ✎ Personnaliser le document →
+    </a>
+  ) : (
+    <a href={`/checkout/${project.id}`} style={{
+      background: '#a85b32',
+      color: 'white',
+      padding: '16px 24px',
+      fontSize: '13px',
+      fontWeight: 600,
+      letterSpacing: '1.5px',
+      textTransform: 'uppercase',
+      textDecoration: 'none',
+      fontFamily: '"IBM Plex Mono", monospace',
+      whiteSpace: 'nowrap',
+    }}>
+      Débloquer pour seulement 97€ →
+    </a>
+  )}
+</div>
 
         {SECTION_KEYS.map((key, i) => {
           const isVisible = isPaid || freeSections.includes(key)
