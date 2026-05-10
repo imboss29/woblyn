@@ -23,6 +23,7 @@ export default function ExportPage() {
   const [loading, setLoading] = useState(true)
   const [showTranslateModal, setShowTranslateModal] = useState(false)
   const [translating, setTranslating] = useState(false)
+  const [downloading, setDownloading] = useState<'fr' | 'en' | null>(null)
 
   useEffect(() => {
     fetch(`/api/projects/${id}`)
@@ -36,9 +37,27 @@ export default function ExportPage() {
       .catch(() => router.push('/dashboard'))
   }, [id, router])
 
-  const downloadPDF = (lang: 'fr' | 'en') => {
-  window.open(`/projects/${id}/print?lang=${lang}`, '_blank')
-}
+  const downloadPDF = async (lang: 'fr' | 'en') => {
+    setDownloading(lang)
+    try {
+      const res = await fetch(`/api/projects/${id}/pdf?lang=${lang}`)
+      if (!res.ok) throw new Error('Erreur de génération du PDF')
+      
+      const blob = await res.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${project?.name || 'business-plan'}_${lang.toUpperCase()}.pdf`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+    } catch (err: any) {
+      alert(err.message || 'Erreur lors de la génération du PDF')
+    } finally {
+      setDownloading(null)
+    }
+  }
 
   const launchTranslation = async () => {
     if (!project) return
@@ -148,13 +167,14 @@ export default function ExportPage() {
               Format PDF · A4 · Prêt à imprimer
             </p>
           </div>
-          <button onClick={() => downloadPDF(sourceLang)} style={{
+          <button onClick={() => downloadPDF(sourceLang)} disabled={downloading === sourceLang} style={{
             background: 'var(--ink)', color: 'white', border: 'none',
             padding: '18px 28px', fontSize: '13px', fontWeight: 600,
             letterSpacing: '1.5px', textTransform: 'uppercase',
-            cursor: 'pointer', fontFamily: '"IBM Plex Mono", monospace',
+            cursor: downloading === sourceLang ? 'wait' : 'pointer', fontFamily: '"IBM Plex Mono", monospace',
+            opacity: downloading === sourceLang ? 0.7 : 1,
           }}>
-            ↓ Télécharger PDF
+            {downloading === sourceLang ? 'Génération... (~30s)' : '↓ Télécharger PDF'}
           </button>
         </div>
 
@@ -182,13 +202,14 @@ export default function ExportPage() {
                 Traduit par notre IA experte
               </p>
             </div>
-            <button onClick={() => downloadPDF(targetLang)} style={{
+            <button onClick={() => downloadPDF(targetLang)} disabled={downloading === targetLang} style={{
               background: '#a85b32', color: 'white', border: 'none',
               padding: '18px 28px', fontSize: '13px', fontWeight: 600,
               letterSpacing: '1.5px', textTransform: 'uppercase',
-              cursor: 'pointer', fontFamily: '"IBM Plex Mono", monospace',
+              cursor: downloading === targetLang ? 'wait' : 'pointer', fontFamily: '"IBM Plex Mono", monospace',
+              opacity: downloading === targetLang ? 0.7 : 1,
             }}>
-              ↓ Télécharger PDF
+              {downloading === targetLang ? 'Génération... (~30s)' : '↓ Télécharger PDF'}
             </button>
           </div>
         ) : project.hasTranslation ? (
@@ -271,13 +292,13 @@ export default function ExportPage() {
             letterSpacing: '3px', color: '#a85b32', textTransform: 'uppercase',
             marginBottom: '16px',
           }}>
-            💡 Conseils avant impression
+            💡 Conseils
           </div>
           <ul style={{ fontSize: '14px', lineHeight: 1.8, paddingLeft: '20px', color: '#374151' }}>
+            <li>Le PDF est généré en haute qualité, identique à l'éditeur</li>
             <li>Vérifiez le contenu une dernière fois avant téléchargement</li>
-            <li>Imprimez en couleur sur du papier de qualité (90g minimum) pour rendu pro</li>
-            <li>Pour un envoi par email, gardez le PDF tel quel (pas besoin de l'imprimer)</li>
-            <li>Personnalisez à nouveau dans l'éditeur si besoin avant le téléchargement</li>
+            <li>Imprimez en couleur sur du papier 90g minimum pour un rendu pro</li>
+            <li>Vous pouvez personnaliser à nouveau dans l'éditeur si besoin</li>
           </ul>
         </div>
 
