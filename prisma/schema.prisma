@@ -89,6 +89,9 @@ model Project {
   visualStyle        String?
   hasLogo            Boolean? @default(false)
   language     String? @default("fr")
+  contentEN  Json?
+  contentFR  Json?
+  hasTranslation Boolean @default(false)
   
   isPaid      Boolean  @default(false)
   paidAt      DateTime?
