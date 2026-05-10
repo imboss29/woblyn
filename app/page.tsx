@@ -345,6 +345,26 @@ export default function Home() {
   </div>
 </section>
 
+  <div style={{
+  maxWidth: '1300px',
+  margin: '0 auto',
+  padding: '40px 60px',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '24px',
+}}>
+  <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
+  <div style={{
+    fontFamily: '"IBM Plex Mono", monospace',
+    fontSize: '11px',
+    letterSpacing: '3px',
+    color: '#a85b32',
+    textTransform: 'uppercase',
+  }}>
+    ◆ ◆ ◆
+  </div>
+  <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
+</div>
       <section className="cta-section">
         <h2 className="cta-quote">Votre business plan, <em>en 5 minutes</em>.</h2>
         <a href="/signup" className="btn-primary">Commencer maintenant →</a>
