@@ -218,6 +218,133 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="section-head">
+  <div className="section-cat">Article 05 · Aperçu</div>
+  <h2 className="section-title">Le produit, en <em>images</em>.</h2>
+</div>
+
+<section style={{ padding: '60px 60px 100px', maxWidth: '1300px', margin: '0 auto' }}>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '40px', marginBottom: '40px' }}>
+    <div>
+      <div style={{
+        fontFamily: '"IBM Plex Mono", monospace',
+        fontSize: '11px',
+        letterSpacing: '3px',
+        color: '#a85b32',
+        textTransform: 'uppercase',
+        marginBottom: '12px',
+      }}>
+        N° 01 — Tableau de bord
+      </div>
+      <h3 style={{
+        fontFamily: '"Playfair Display", serif',
+        fontSize: '28px',
+        fontWeight: 900,
+        letterSpacing: '-1px',
+        lineHeight: 1.1,
+        marginBottom: '12px',
+        color: 'var(--ink)',
+      }}>
+        Tous vos plans en un endroit.
+      </h3>
+      <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--ink-soft)', fontWeight: 300 }}>
+        Retrouvez vos projets, leurs statuts et accédez à votre espace personnalisé.
+      </p>
+    </div>
+    <img src="/screenshots/01-dashboard.png" alt="Dashboard" style={{
+      width: '100%',
+      border: '1px solid var(--gray-line)',
+      boxShadow: '0 20px 60px rgba(13,27,42,0.12)',
+    }} />
+  </div>
+
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '40px', marginBottom: '40px' }}>
+    <img src="/screenshots/03-cover.png" alt="Couverture" style={{
+      width: '100%',
+      border: '1px solid var(--gray-line)',
+      boxShadow: '0 20px 60px rgba(13,27,42,0.12)',
+    }} />
+    <div>
+      <div style={{
+        fontFamily: '"IBM Plex Mono", monospace',
+        fontSize: '11px',
+        letterSpacing: '3px',
+        color: '#a85b32',
+        textTransform: 'uppercase',
+        marginBottom: '12px',
+      }}>
+        N° 02 — Page de couverture
+      </div>
+      <h3 style={{
+        fontFamily: '"Playfair Display", serif',
+        fontSize: '28px',
+        fontWeight: 900,
+        letterSpacing: '-1px',
+        lineHeight: 1.1,
+        marginBottom: '12px',
+        color: 'var(--ink)',
+      }}>
+        Une première impression à la hauteur.
+      </h3>
+      <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--ink-soft)', fontWeight: 300 }}>
+        Votre nom, votre logo, vos chiffres clés et une accroche générée par l'IA.
+      </p>
+    </div>
+  </div>
+
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '40px', marginBottom: '40px' }}>
+    <div>
+      <div style={{
+        fontFamily: '"IBM Plex Mono", monospace',
+        fontSize: '11px',
+        letterSpacing: '3px',
+        color: '#a85b32',
+        textTransform: 'uppercase',
+        marginBottom: '12px',
+      }}>
+        N° 03 — Graphiques automatiques
+      </div>
+      <h3 style={{
+        fontFamily: '"Playfair Display", serif',
+        fontSize: '28px',
+        fontWeight: 900,
+        letterSpacing: '-1px',
+        lineHeight: 1.1,
+        marginBottom: '12px',
+        color: 'var(--ink)',
+      }}>
+        Vos chiffres parlent d'eux-mêmes.
+      </h3>
+      <p style={{ fontSize: '15px', lineHeight: 1.7, color: 'var(--ink-soft)', fontWeight: 300 }}>
+        Évolution du chiffre d'affaires, charges, financement. Tout est calculé et visualisé automatiquement.
+      </p>
+    </div>
+    <img src="/screenshots/05-chart.png" alt="Graphiques" style={{
+      width: '100%',
+      border: '1px solid var(--gray-line)',
+      boxShadow: '0 20px 60px rgba(13,27,42,0.12)',
+    }} />
+  </div>
+
+  <div style={{ textAlign: 'center', marginTop: '60px' }}>
+    <a href="/exemples" style={{
+      background: 'transparent',
+      color: 'var(--ink)',
+      border: '1px solid var(--ink)',
+      padding: '16px 32px',
+      fontSize: '13px',
+      fontWeight: 600,
+      letterSpacing: '1.5px',
+      textTransform: 'uppercase',
+      textDecoration: 'none',
+      fontFamily: '"IBM Plex Mono", monospace',
+      display: 'inline-block',
+    }}>
+      Voir tous les exemples →
+    </a>
+  </div>
+</section>
+
       <section className="cta-section">
         <h2 className="cta-quote">Votre business plan, <em>en 5 minutes</em>.</h2>
         <a href="/signup" className="btn-primary">Commencer maintenant →</a>
