@@ -37,9 +37,8 @@ export default function ExportPage() {
   }, [id, router])
 
   const downloadPDF = (lang: 'fr' | 'en') => {
-    sessionStorage.setItem('woblyn-export-lang', lang)
-    window.open(`/projects/${id}/edit?print=1&lang=${lang}`, '_blank')
-  }
+  window.open(`/projects/${id}/print?lang=${lang}`, '_blank')
+}
 
   const launchTranslation = async () => {
     if (!project) return
