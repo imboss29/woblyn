@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Cover from './Cover'
 import { RevenueChart, ChargesChart, FundingChart } from './Charts'
+import Tutorial from './Tutorial'
 
 type Project = {
   id: string
@@ -55,6 +56,7 @@ export default function EditorPage() {
   const [editMode, setEditMode] = useState(false)
   const [editingTagline, setEditingTagline] = useState(false)
   const [zoom, setZoom] = useState(100)
+  const [showTutorial, setShowTutorial] = useState(false)
 
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -70,6 +72,13 @@ export default function EditorPage() {
     })
     .catch(() => router.push('/dashboard'))
 }, [id, router])
+
+useEffect(() => {
+  if (!loading && project) {
+    const done = localStorage.getItem('woblyn-tutorial-done')
+    if (!done) setShowTutorial(true)
+  }
+}, [loading, project])
 
   const saveSection = useCallback((sectionKey: SectionKey, content: string) => {
     setSaveStatus('saving')
@@ -203,7 +212,7 @@ export default function EditorPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#e8e4d8', display: 'flex' }} className="editor-root">
 
-      <aside style={{ width: '260px', background: '#0d1b2a', color: '#f4f1ea', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
+      <aside data-tour="sidebar" style={{ width: '260px', background: '#0d1b2a', color: '#f4f1ea', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '24px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
           <a href="/dashboard" style={{ fontSize: '11px', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontFamily: '"IBM Plex Mono", monospace', letterSpacing: '2px', textTransform: 'uppercase' }}>← Dashboard</a>
           {editingName ? (
@@ -259,11 +268,17 @@ export default function EditorPage() {
         </div>
 
         <div style={{ padding: '20px 24px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          <button onClick={exportPDF} style={{
-            width: '100%', background: '#a85b32', color: 'white', border: 'none', padding: '12px',
+          <button data-tour="export" onClick={exportPDF} style={{
+  width: '100%', background: '#a85b32', color: 'white', border: 'none', padding: '12px',
             fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px',
             textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
           }}>↓ Télécharger PDF</button>
+          <button onClick={() => setShowTutorial(true)} style={{
+  width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.6)',
+  border: '1px solid rgba(255,255,255,0.15)', padding: '10px',
+  fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '1.5px',
+  textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
+}}>? Voir le tutoriel</button>
           <button onClick={deleteProject} style={{
             width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.15)', padding: '10px',
             fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '1.5px',
@@ -273,7 +288,7 @@ export default function EditorPage() {
       </aside>
 
       {!isCover && (
-  <div style={{
+  <div data-tour="zoom" style={{
     position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
     background: 'white', border: '1px solid #d4cfc0', borderRadius: '24px',
     padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '12px',
@@ -297,7 +312,7 @@ export default function EditorPage() {
   </div>
 )}
 
-      <main style={{ flex: 1, padding: '60px 40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', overflow: 'auto', background: '#e8e4d8' }}>
+      <main data-tour="document" style={{ flex: 1, padding: '60px 40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', overflow: 'auto', background: '#e8e4d8' }}>
         {isCover ? (
           <Cover
             projectName={project.name}
@@ -389,19 +404,19 @@ export default function EditorPage() {
 
       <aside style={{ width: '320px', background: 'white', borderLeft: '1px solid #d4cfc0', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto', flexShrink: 0 }}>
         <div style={{ display: 'flex', borderBottom: '1px solid #d4cfc0' }}>
-          <button onClick={() => setRightTab('style')} style={{
-            flex: 1, padding: '16px', background: rightTab === 'style' ? '#0d1b2a' : 'transparent',
-            color: rightTab === 'style' ? 'white' : '#0d1b2a', border: 'none',
-            fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
-            letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
-          }}>Style</button>
-          <button onClick={() => setRightTab('ai')} style={{
-            flex: 1, padding: '16px', background: rightTab === 'ai' ? '#0d1b2a' : 'transparent',
-            color: rightTab === 'ai' ? 'white' : '#0d1b2a', border: 'none',
-            fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
-            letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
-          }}>✦ IA</button>
-        </div>
+  <button data-tour="style-tab" onClick={() => setRightTab('style')} style={{
+    flex: 1, padding: '16px', background: rightTab === 'style' ? '#0d1b2a' : 'transparent',
+    color: rightTab === 'style' ? 'white' : '#0d1b2a', border: 'none',
+    fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
+    letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
+  }}>Style</button>
+  <button data-tour="ai-tab" onClick={() => setRightTab('ai')} style={{
+    flex: 1, padding: '16px', background: rightTab === 'ai' ? '#0d1b2a' : 'transparent',
+    color: rightTab === 'ai' ? 'white' : '#0d1b2a', border: 'none',
+    fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600,
+    letterSpacing: '2px', textTransform: 'uppercase', cursor: 'pointer',
+  }}>✦ IA</button>
+</div>
 
         {rightTab === 'ai' ? (
           <div style={{ padding: '24px' }}>
