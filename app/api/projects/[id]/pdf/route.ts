@@ -35,14 +35,20 @@ export async function GET(
         headless: true,
       })
     } else {
-      const chromium = (await import('@sparticuz/chromium')).default
-      const puppeteer = await import('puppeteer-core')
-      browser = await puppeteer.default.launch({
-        args: chromium.args,
-        executablePath: await chromium.executablePath(),
-        headless: true,
-      })
-    }
+  const chromium = (await import('@sparticuz/chromium')).default
+  const puppeteer = await import('puppeteer-core')
+  
+  // Télécharge Chromium depuis l'URL officielle (pack distant)
+  const executablePath = await chromium.executablePath(
+    'https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar'
+  )
+  
+  browser = await puppeteer.default.launch({
+    args: chromium.args,
+    executablePath,
+    headless: true,
+  })
+}
 
     const page = await browser.newPage()
 
