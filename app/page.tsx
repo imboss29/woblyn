@@ -8,7 +8,7 @@ export default function Home() {
 
       <nav>
   <div className="nav-left" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-    <img src="/logo.png" alt="Woblyn" style={{ height: '80px' }} />
+    <img src="/logo.png" alt="Woblyn" style={{ height: '100px' }} />
     <a href="#solution">Solutions</a>
     <a href="#pricing">Tarifs</a>
     <a href="/exemples">Exemples</a>
