@@ -21,6 +21,7 @@ export async function PATCH(
 
     if (!project) return NextResponse.json({ error: 'Introuvable' }, { status: 404 })
     if (project.userId !== session.user.id) return NextResponse.json({ error: 'Non autorisé' }, { status: 403 })
+    if (!project.isPaid) return NextResponse.json({ error: 'Paiement requis' }, { status: 402 })
 
     const currentContent = (project.content as Record<string, string>) || {}
     currentContent[sectionKey] = content

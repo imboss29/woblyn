@@ -58,15 +58,17 @@ export default function EditorPage() {
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
-    fetch(`/api/projects/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) { router.push('/dashboard'); return }
-        setProject(data)
-        setLoading(false)
-      })
-      .catch(() => router.push('/dashboard'))
-  }, [id, router])
+  fetch(`/api/projects/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) { router.push('/dashboard'); return }
+      // Protection : si le projet n'est pas payé, on redirige vers la preview
+      if (!data.isPaid) { router.push(`/projects/${id}`); return }
+      setProject(data)
+      setLoading(false)
+    })
+    .catch(() => router.push('/dashboard'))
+}, [id, router])
 
   const saveSection = useCallback((sectionKey: SectionKey, content: string) => {
     setSaveStatus('saving')

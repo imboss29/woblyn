@@ -16,6 +16,7 @@ export async function PATCH(
     const project = await prisma.project.findUnique({ where: { id: params.id } })
     if (!project) return NextResponse.json({ error: 'Introuvable' }, { status: 404 })
     if (project.userId !== session.user.id) return NextResponse.json({ error: 'Non autorisé' }, { status: 403 })
+    if (!project.isPaid) return NextResponse.json({ error: 'Paiement requis' }, { status: 402 })
 
     const updateData: any = {}
     const fields = ['name', 'theme', 'bgColor', 'textColor', 'accentColor', 'titleFont', 'bodyFont', 'fontSize', 'logoUrl', 'tagline']

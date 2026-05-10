@@ -26,6 +26,7 @@ export async function POST(
     const project = await prisma.project.findUnique({ where: { id: params.id } })
     if (!project) return NextResponse.json({ error: 'Introuvable' }, { status: 404 })
     if (project.userId !== session.user.id) return NextResponse.json({ error: 'Non autorisé' }, { status: 403 })
+    if (!project.isPaid) return NextResponse.json({ error: 'Paiement requis' }, { status: 402 })
     if (!project.formData) return NextResponse.json({ error: 'Données manquantes' }, { status: 400 })
 
     const data = project.formData as unknown as FormData
