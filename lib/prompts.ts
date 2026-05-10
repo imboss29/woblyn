@@ -1047,7 +1047,7 @@ export const SECTION_KEYS = [
 export type SectionKey = typeof SECTION_KEYS[number]
 
 export const SECTION_LABELS_FR: Record<SectionKey, string> = {
-  executiveSummary: 'Executive Summary',
+  executiveSummary: 'Résumé exécutif',
   projectPresentation: 'Présentation du projet',
   marketAnalysis: 'Analyse du marché',
   valueProposition: 'Proposition de valeur',

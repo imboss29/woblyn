@@ -85,6 +85,9 @@ model Project {
   fontSize     String? @default("normal")
   logoUrl      String?
   tagline      String?
+  primaryColorChoice String?
+  visualStyle        String?
+  hasLogo            Boolean? @default(false)
   language     String? @default("fr")
   
   isPaid      Boolean  @default(false)

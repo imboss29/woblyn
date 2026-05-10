@@ -48,6 +48,10 @@ type FormData = {
   visionY5: string
   risks: string
   exitStrategy: string
+  // 10. Visuel
+  primaryColorChoice: string
+  visualStyle: string
+  hasLogo: string
 }
 
 const initialForm: FormData = {
@@ -60,7 +64,7 @@ const initialForm: FormData = {
   initialInvestment: '', monthlyCharges: '', fundingSources: '', launchDate: '',
   growthY2: '', growthY3: '', revenueY3: '',
   foundersCount: '', founderProfile: '', hiringPlan: '', keySkills: '',
-  visionY5: '', risks: '', exitStrategy: '',
+  visionY5: '', risks: '', exitStrategy: '', primaryColorChoice: '', visualStyle: '', hasLogo: '',
 }
 
 export default function NewProjectPage() {
@@ -68,7 +72,7 @@ export default function NewProjectPage() {
   const [step, setStep] = useState(1)
   const [form, setForm] = useState<FormData>(initialForm)
   const [loading, setLoading] = useState(false)
-  const totalSteps = 10
+  const totalSteps = 11
 
   const update = (field: keyof FormData, value: string) => {
     setForm({ ...form, [field]: value })
@@ -120,7 +124,8 @@ export default function NewProjectPage() {
           {step === 7 && <Step7 form={form} update={update} />}
           {step === 8 && <Step8 form={form} update={update} />}
           {step === 9 && <Step9 form={form} update={update} />}
-          {step === 10 && <Step10 form={form} />}
+{step === 10 && <StepVisual form={form} update={update} />}
+{step === 11 && <Step10 form={form} />}
 
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '40px', paddingTop: '24px', borderTop: '1px solid #d4cfc0' }}>
             {step > 1 ? <button onClick={prev} style={btnSecondary}>← Précédent</button> : <div />}
@@ -268,7 +273,98 @@ function Step9({ form, update }: any) {
   </>
 }
 
+function StepVisual({ form, update }: any) {
+  return <>
+    <Header cat="10 — Identité visuelle" title="L'image de votre business plan." />
+    
+    <p style={{ fontSize: '14px', color: 'var(--gray)', marginBottom: '32px', lineHeight: 1.5 }}>
+      Personnalisez l'apparence de votre document. Vous pourrez tout modifier ensuite dans l'éditeur.
+    </p>
+
+    <div style={{ marginBottom: '24px' }}>
+      <label style={labelStyle}>Style visuel souhaité</label>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+        {[
+          { key: 'editorial', name: 'Éditorial', desc: 'Magazine financier' },
+          { key: 'corporate', name: 'Corporate', desc: 'Banque & finance' },
+          { key: 'tech', name: 'Tech', desc: 'Startup minimaliste' },
+          { key: 'premium', name: 'Premium', desc: 'Luxe & cabinet' },
+        ].map(s => (
+          <button key={s.key} type="button" onClick={() => update('visualStyle', s.key)} style={{
+            padding: '16px', border: `2px solid ${form.visualStyle === s.key ? '#0d1b2a' : '#d4cfc0'}`,
+            background: form.visualStyle === s.key ? '#0d1b2a' : 'white',
+            color: form.visualStyle === s.key ? 'white' : '#0d1b2a',
+            cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
+          }}>
+            <div style={{ fontFamily: '"Playfair Display", serif', fontSize: '16px', fontWeight: 700 }}>{s.name}</div>
+            <div style={{ fontSize: '11px', opacity: 0.7, marginTop: '2px' }}>{s.desc}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div style={{ marginBottom: '24px' }}>
+      <label style={labelStyle}>Couleur d'accent dominante</label>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+        {[
+          { key: 'terracotta', name: 'Terracotta', color: '#a85b32' },
+          { key: 'navy', name: 'Bleu marine', color: '#1d4ed8' },
+          { key: 'forest', name: 'Vert forêt', color: '#166534' },
+          { key: 'gold', name: 'Or', color: '#c9a558' },
+          { key: 'burgundy', name: 'Bordeaux', color: '#991b1b' },
+          { key: 'graphite', name: 'Graphite', color: '#374151' },
+          { key: 'plum', name: 'Prune', color: '#6b21a8' },
+          { key: 'teal', name: 'Sarcelle', color: '#0f766e' },
+        ].map(c => (
+          <button key={c.key} type="button" onClick={() => update('primaryColorChoice', c.key)} style={{
+            padding: '12px 8px', border: `2px solid ${form.primaryColorChoice === c.key ? '#0d1b2a' : '#d4cfc0'}`,
+            background: form.primaryColorChoice === c.key ? '#0d1b2a' : 'white',
+            color: form.primaryColorChoice === c.key ? 'white' : '#0d1b2a',
+            cursor: 'pointer', fontFamily: 'inherit', textAlign: 'center',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
+          }}>
+            <span style={{ width: '24px', height: '24px', background: c.color, borderRadius: '50%' }} />
+            <span style={{ fontSize: '11px', fontWeight: 600 }}>{c.name}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div style={{ marginBottom: '8px' }}>
+      <label style={labelStyle}>Avez-vous déjà un logo ?</label>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+        <button type="button" onClick={() => update('hasLogo', 'yes')} style={{
+          padding: '14px', border: `2px solid ${form.hasLogo === 'yes' ? '#0d1b2a' : '#d4cfc0'}`,
+          background: form.hasLogo === 'yes' ? '#0d1b2a' : 'white',
+          color: form.hasLogo === 'yes' ? 'white' : '#0d1b2a',
+          fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
+        }}>
+          ✓ Oui, j'ai un logo
+        </button>
+        <button type="button" onClick={() => update('hasLogo', 'no')} style={{
+          padding: '14px', border: `2px solid ${form.hasLogo === 'no' ? '#0d1b2a' : '#d4cfc0'}`,
+          background: form.hasLogo === 'no' ? '#0d1b2a' : 'white',
+          color: form.hasLogo === 'no' ? 'white' : '#0d1b2a',
+          fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
+        }}>
+          Pas encore
+        </button>
+      </div>
+      <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '8px', lineHeight: 1.5 }}>
+        Si oui, vous pourrez l'uploader directement dans l'éditeur après génération.
+      </div>
+    </div>
+  </>
+}
+
 function Step10({ form }: { form: FormData }) {
+  const styleNames: Record<string, string> = {
+    editorial: 'Éditorial', corporate: 'Corporate', tech: 'Tech', premium: 'Premium',
+  }
+  const colorNames: Record<string, string> = {
+    terracotta: 'Terracotta', navy: 'Bleu marine', forest: 'Vert forêt', gold: 'Or',
+    burgundy: 'Bordeaux', graphite: 'Graphite', plum: 'Prune', teal: 'Sarcelle',
+  }
   const items = [
     ['Langue', form.language === 'en' ? '🇬🇧 English' : '🇫🇷 Français'],
     ['Projet', form.projectName],
@@ -278,17 +374,18 @@ function Step10({ form }: { form: FormData }) {
     ['Zone', form.geographicZone],
     ['Modèle de revenus', form.revenueModel],
     ['Prix moyen', form.averagePrice + '€'],
-    ['Coût variable', form.variableCost + '€'],
     ['Volume M12', form.monthlyVolume + '/mois'],
     ['Investissement', form.initialInvestment + '€'],
     ['Charges fixes', form.monthlyCharges + '€/mois'],
     ['Lancement', form.launchDate],
     ['CA Année 3', form.revenueY3 + '€'],
-    ['Fondateurs', form.foundersCount],
+    ['Style visuel', styleNames[form.visualStyle] || '—'],
+    ['Couleur', colorNames[form.primaryColorChoice] || '—'],
+    ['Logo', form.hasLogo === 'yes' ? 'Oui (à uploader)' : 'Pas encore'],
   ]
   return (
     <>
-      <Header cat="10 — Récapitulatif" title="Tout est bon ?" />
+      <Header cat="11 — Récapitulatif" title="Tout est bon ?" />
       <p style={{ fontSize: '14px', color: 'var(--gray)', marginBottom: '24px' }}>
         Vérifiez les informations avant de lancer la génération. Vous pourrez tout modifier ensuite dans l'éditeur.
       </p>
