@@ -288,30 +288,27 @@ export default function EditorPage() {
         </div>
       </aside>
 
-      {!isCover && (
-        <div data-tour="zoom" style={{
-          position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
-          background: 'white', border: '1px solid #d4cfc0', borderRadius: '24px',
-          padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '12px',
-          boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 100,
-        }}>
-          <button onClick={() => setZoom(z => Math.max(z - 10, 50))} style={zoomBtnStyle}>−</button>
-          <input
-            type="range" min="50" max="150" step="5" value={zoom}
-            onChange={(e) => setZoom(Number(e.target.value))}
-            style={{ width: '120px', cursor: 'pointer' }}
-          />
-          <button onClick={() => setZoom(z => Math.min(z + 10, 150))} style={zoomBtnStyle}>+</button>
-          <span style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, minWidth: '45px', textAlign: 'center' }}>
-            {zoom}%
-          </span>
-          <button onClick={() => setZoom(100)} style={{
-            ...zoomBtnStyle, fontSize: '10px', letterSpacing: '1px', padding: '6px 10px',
-          }}>
-            RESET
-          </button>
-        </div>
-      )}
+      <div data-tour="zoom" style={{
+  position: 'fixed', bottom: 24, right: 360,
+  background: '#0d1b2a', borderRadius: '8px',
+  padding: '8px 12px', display: 'flex', alignItems: 'center', gap: '10px',
+  boxShadow: '0 8px 24px rgba(13,27,42,0.25)', zIndex: 100,
+}}>
+  <button onClick={() => setZoom(z => Math.max(z - 10, 50))} style={zoomBtnStyle} title="Dézoomer">−</button>
+  <span style={{ 
+    fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, 
+    minWidth: '38px', textAlign: 'center', color: 'white', letterSpacing: '0.5px',
+  }}>
+    {zoom}%
+  </span>
+  <button onClick={() => setZoom(z => Math.min(z + 10, 150))} style={zoomBtnStyle} title="Zoomer">+</button>
+  <div style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.2)' }} />
+  <button onClick={() => setZoom(100)} style={{
+    ...zoomBtnStyle, fontSize: '9px', letterSpacing: '1px', padding: '4px 8px', width: 'auto',
+  }} title="Réinitialiser">
+    100%
+  </button>
+</div>
 
       <main data-tour="document" style={{ flex: 1, padding: '60px 40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', overflow: 'auto', background: '#e8e4d8' }}>
         {isCover ? (
@@ -656,9 +653,9 @@ function FontSelect({ label, value, options, onChange }: { label: string, value:
 }
 
 const zoomBtnStyle: React.CSSProperties = {
-  background: 'transparent', border: '1px solid #d4cfc0',
-  width: '28px', height: '28px', cursor: 'pointer',
+  background: 'rgba(255,255,255,0.1)', border: 'none',
+  width: '24px', height: '24px', cursor: 'pointer',
   display: 'flex', alignItems: 'center', justifyContent: 'center',
-  fontFamily: '"IBM Plex Mono", monospace', fontSize: '14px', fontWeight: 600,
-  color: '#0d1b2a', borderRadius: '4px',
+  fontFamily: '"IBM Plex Mono", monospace', fontSize: '13px', fontWeight: 600,
+  color: 'white', borderRadius: '4px', transition: 'background 0.15s',
 }
