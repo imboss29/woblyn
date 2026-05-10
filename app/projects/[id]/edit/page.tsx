@@ -312,16 +312,18 @@ export default function EditorPage() {
 
       <main data-tour="document" style={{ flex: 1, padding: '60px 40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', overflow: 'auto', background: '#e8e4d8' }}>
         {isCover ? (
-          <Cover
-            projectName={project.name}
-            logoUrl={project.logoUrl}
-            tagline={project.tagline}
-            formData={project.formData || {}}
-            bg={bg} text={text} accent={accent}
-            titleFont={titleFont} bodyFont={bodyFont}
-            templateStyle={baseTheme.style}
-          />
-        ) : (
+  <div style={{ transform: `scale(${zoom / 100})`, transformOrigin: 'top center', transition: 'transform 0.2s' }}>
+    <Cover
+      projectName={project.name}
+      logoUrl={project.logoUrl}
+      tagline={project.tagline}
+      formData={project.formData || {}}
+      bg={bg} text={text} accent={accent}
+      titleFont={titleFont} bodyFont={bodyFont}
+      templateStyle={baseTheme.style}
+    />
+  </div>
+) : (
           <div className={`document-page template-${baseTheme.style}`} style={{
             width: '210mm', minHeight: '297mm', maxWidth: '100%',
             background: bg, padding: '60px 50px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
