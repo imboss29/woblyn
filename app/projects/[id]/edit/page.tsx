@@ -61,7 +61,7 @@ export default function EditorPage() {
   const [editingTagline, setEditingTagline] = useState(false)
   const [zoom, setZoom] = useState(100)
   const [showTutorial, setShowTutorial] = useState(false)
-  const [showTranslateModal, setShowTranslateModal] = useState(false)
+
 
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -198,12 +198,12 @@ export default function EditorPage() {
   }
 
   const exportPDF = () => {
-    if (!project?.isPaid) {
-      alert('Le téléchargement PDF est disponible après paiement (97€).')
-      return
-    }
-    window.print()
+  if (!project?.isPaid) {
+    alert('Le téléchargement PDF est disponible après paiement (97€).')
+    return
   }
+  router.push(`/projects/${id}/export`)
+}
 
   if (loading || !project) {
     return (
@@ -253,77 +253,6 @@ export default function EditorPage() {
             {saveStatus === 'saved' ? 'Sauvegardé' : saveStatus === 'saving' ? 'Sauvegarde...' : 'Erreur'}
           </div>
         </div>
-        {showTranslateModal && (
-  <div style={{
-    position: 'fixed', inset: 0, background: 'rgba(13,27,42,0.7)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    zIndex: 9999, padding: '20px',
-  }}>
-    <div style={{
-      background: 'white', maxWidth: '500px', width: '100%',
-      padding: '40px', boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-    }}>
-      <div style={{
-        fontFamily: '"IBM Plex Mono", monospace',
-        fontSize: '11px', letterSpacing: '3px', color: '#a85b32',
-        textTransform: 'uppercase', marginBottom: '12px',
-      }}>
-        ✦ Nouvelle fonctionnalité
-      </div>
-      <h2 style={{
-        fontFamily: '"Playfair Display", serif',
-        fontSize: '32px', fontWeight: 900, letterSpacing: '-1px',
-        lineHeight: 1.1, marginBottom: '16px',
-      }}>
-        Traduire votre business plan en {project.language === 'fr' ? 'anglais' : 'français'}
-      </h2>
-      <p style={{ fontSize: '14px', color: '#374151', lineHeight: 1.6, marginBottom: '20px' }}>
-        Obtenez votre business plan dans la deuxième langue, généré spécifiquement par notre IA experte (pas une simple traduction automatique). Idéal pour les présentations à des investisseurs internationaux.
-      </p>
-      
-      <div style={{ background: '#f4f1ea', padding: '20px', marginBottom: '24px', borderLeft: '3px solid #a85b32' }}>
-        <div style={{ fontSize: '13px', fontWeight: 600, marginBottom: '8px' }}>
-          Inclus dans la traduction :
-        </div>
-        <ul style={{ fontSize: '13px', lineHeight: 1.8, paddingLeft: '20px', color: '#374151' }}>
-          <li>10 sections complètes traduites</li>
-          <li>Tableaux et chiffres adaptés</li>
-          <li>Tournures et terminologie professionnelles</li>
-          <li>Téléchargement PDF dans les 2 langues</li>
-        </ul>
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <div style={{ fontFamily: '"Playfair Display", serif', fontSize: '32px', fontWeight: 900, color: '#a85b32' }}>
-            39€
-          </div>
-          <div style={{ fontSize: '11px', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '1px' }}>
-            Paiement unique
-          </div>
-        </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-  <button onClick={() => setShowTranslateModal(false)} style={{
-    background: 'transparent', border: '1px solid #0d1b2a', color: '#0d1b2a',
-    padding: '12px 20px', fontSize: '12px', fontWeight: 600,
-    letterSpacing: '1.5px', textTransform: 'uppercase',
-    cursor: 'pointer', fontFamily: 'inherit',
-  }}>
-    Plus tard
-  </button>
-  <button onClick={() => alert('Stripe sera bientôt activé. La traduction se lancera automatiquement après paiement.')} style={{
-    background: '#a85b32', color: 'white', border: 'none',
-    padding: '12px 20px', fontSize: '12px', fontWeight: 600,
-    letterSpacing: '1.5px', textTransform: 'uppercase',
-    cursor: 'pointer', fontFamily: 'inherit',
-  }}>
-    Payer 39€ →
-  </button>
-</div>
-      </div>
-    </div>
-  </div>
-)}
 
         <div style={{ padding: '20px 0', flex: 1 }}>
           <div style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '2px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', padding: '0 24px', marginBottom: '12px' }}>Sommaire</div>
@@ -366,25 +295,7 @@ export default function EditorPage() {
             fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px',
             textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
           }}>↓ Télécharger PDF</button>
-          {project.hasTranslation ? (
-  <button onClick={handleTranslate} disabled={!!aiAction} style={{
-    width: '100%', background: '#a85b32', color: 'white', border: 'none', padding: '12px',
-    fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, letterSpacing: '1.5px',
-    textTransform: 'uppercase', cursor: aiAction ? 'wait' : 'pointer', marginBottom: '8px',
-    opacity: aiAction ? 0.7 : 1,
-  }}>
-    {aiAction === 'translate' ? 'Traduction en cours...' : `✦ Lancer traduction ${project.language === 'fr' ? 'EN' : 'FR'}`}
-  </button>
-) : (
-  <button onClick={() => setShowTranslateModal(true)} style={{
-    width: '100%', background: 'transparent', color: '#a85b32',
-    border: '1px solid #a85b32', padding: '10px',
-    fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', fontWeight: 600, letterSpacing: '1.5px',
-    textTransform: 'uppercase', cursor: 'pointer', marginBottom: '8px',
-  }}>
-    ✦ Traduire en {project.language === 'fr' ? 'EN' : 'FR'} (+39€)
-  </button>
-)}
+          
           <button onClick={() => setShowTutorial(true)} style={{
             width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.6)',
             border: '1px solid rgba(255,255,255,0.15)', padding: '10px',
