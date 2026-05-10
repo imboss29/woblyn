@@ -67,31 +67,45 @@ const [generating, setGenerating] = useState(false)
 useEffect(() => {
   if (!loading && project && isPdfMode && containerRef.current && !generating) {
     setGenerating(true)
-    // Délai pour les fonts/charts
+    
+    // Attendre longtemps pour que tout soit prêt
     setTimeout(async () => {
       try {
+        console.log('[PDF] Container content:', containerRef.current?.innerHTML?.substring(0, 200))
+        console.log('[PDF] Container dimensions:', containerRef.current?.offsetWidth, 'x', containerRef.current?.offsetHeight)
+        
+        if (!containerRef.current) {
+          alert('Container introuvable')
+          return
+        }
+        
         const html2pdf = (await import('html2pdf.js')).default
         const filename = `${project.name.replace(/[^a-z0-9]/gi, '_')}_${lang.toUpperCase()}.pdf`
         
         const opt: any = {
-  margin: 0,
-  filename,
-  image: { type: 'jpeg', quality: 0.98 },
-  html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-  jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-  pagebreak: { mode: ['css', 'legacy'], before: '.print-page' },
-}
+          margin: [10, 10, 10, 10],
+          filename,
+          image: { type: 'jpeg', quality: 0.95 },
+          html2canvas: { 
+            scale: 1.5, 
+            useCORS: true, 
+            letterRendering: true,
+            logging: true,
+            backgroundColor: '#ffffff',
+            windowWidth: 800,
+          },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
+          pagebreak: { mode: ['avoid-all', 'css'], before: '.print-page' },
+        }
         
-        if (!containerRef.current) return
-await html2pdf().set(opt).from(containerRef.current).save()
+        await html2pdf().set(opt).from(containerRef.current).save()
         
-        // Fermer l'onglet après téléchargement
-        setTimeout(() => window.close(), 1000)
-      } catch (err) {
+        setTimeout(() => window.close(), 2000)
+      } catch (err: any) {
         console.error('PDF generation error:', err)
-        alert('Erreur lors de la génération du PDF')
+        alert('Erreur: ' + (err.message || 'inconnu'))
       }
-    }, 2500)
+    }, 5000)
   }
 }, [loading, project, isPdfMode])
 
