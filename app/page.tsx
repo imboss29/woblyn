@@ -11,7 +11,7 @@ export default function Home() {
     <img src="/logo.png" alt="Woblyn" style={{ height: '80px' }} />
     <a href="#solution">Solutions</a>
     <a href="#pricing">Tarifs</a>
-    <a href="#">Exemples</a>
+    <a href="/exemples">Exemples</a>
   </div>
 
         <div>
