@@ -58,10 +58,12 @@ for (const key of SECTION_KEYS) {
 
     return NextResponse.json({ success: true, sections })
   } catch (error: any) {
-    console.error('Generation error:', error)
-    return NextResponse.json(
-      { error: error.message || 'Erreur de génération' },
-      { status: 500 }
-    )
-  }
+  console.error('GENERATE ERROR:', error)
+  console.error('Error message:', error?.message)
+  console.error('Error stack:', error?.stack)
+  return NextResponse.json({ 
+    error: error?.message || 'Erreur de génération',
+    details: error?.stack?.substring(0, 500),
+  }, { status: 500 })
+}
 }
