@@ -54,6 +54,7 @@ export default function EditorPage() {
   const [editingName, setEditingName] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [editingTagline, setEditingTagline] = useState(false)
+  const [zoom, setZoom] = useState(100)
 
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -271,6 +272,31 @@ export default function EditorPage() {
         </div>
       </aside>
 
+      {!isCover && (
+  <div style={{
+    position: 'fixed', bottom: 24, left: '50%', transform: 'translateX(-50%)',
+    background: 'white', border: '1px solid #d4cfc0', borderRadius: '24px',
+    padding: '8px 16px', display: 'flex', alignItems: 'center', gap: '12px',
+    boxShadow: '0 8px 24px rgba(0,0,0,0.12)', zIndex: 100,
+  }}>
+    <button onClick={() => setZoom(z => Math.max(z - 10, 50))} style={zoomBtnStyle}>−</button>
+    <input
+      type="range" min="50" max="150" step="5" value={zoom}
+      onChange={(e) => setZoom(Number(e.target.value))}
+      style={{ width: '120px', cursor: 'pointer' }}
+    />
+    <button onClick={() => setZoom(z => Math.min(z + 10, 150))} style={zoomBtnStyle}>+</button>
+    <span style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px', fontWeight: 600, minWidth: '45px', textAlign: 'center' }}>
+      {zoom}%
+    </span>
+    <button onClick={() => setZoom(100)} style={{
+      ...zoomBtnStyle, fontSize: '10px', letterSpacing: '1px', padding: '6px 10px',
+    }}>
+      RESET
+    </button>
+  </div>
+)}
+
       <main style={{ flex: 1, padding: '60px 40px', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', overflow: 'auto', background: '#e8e4d8' }}>
         {isCover ? (
           <Cover
@@ -284,10 +310,11 @@ export default function EditorPage() {
           />
         ) : (
           <div className={`document-page template-${baseTheme.style}`} style={{
-            width: '210mm', minHeight: '297mm', maxWidth: '100%',
-            background: bg, padding: '60px 50px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
-            fontFamily: `"${bodyFont}", sans-serif`, color: text, fontSize,
-          }}>
+  width: '210mm', minHeight: '297mm', maxWidth: '100%',
+  background: bg, padding: '60px 50px', boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
+  fontFamily: `"${bodyFont}", sans-serif`, color: text, fontSize,
+  transform: `scale(${zoom / 100})`, transformOrigin: 'top center', transition: 'transform 0.2s',
+}}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px', borderBottom: `1px solid ${text}20`, marginBottom: '40px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 {project.logoUrl && <img src={project.logoUrl} alt="" style={{ height: '32px' }} />}
@@ -609,4 +636,12 @@ function FontSelect({ label, value, options, onChange }: { label: string, value:
       </select>
     </div>
   )
+}
+
+const zoomBtnStyle: React.CSSProperties = {
+  background: 'transparent', border: '1px solid #d4cfc0',
+  width: '28px', height: '28px', cursor: 'pointer',
+  display: 'flex', alignItems: 'center', justifyContent: 'center',
+  fontFamily: '"IBM Plex Mono", monospace', fontSize: '14px', fontWeight: 600,
+  color: '#0d1b2a', borderRadius: '4px',
 }
