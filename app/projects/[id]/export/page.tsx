@@ -147,6 +147,36 @@ export default function ExportPage() {
           Téléchargez votre business plan au format PDF, prêt à présenter à vos banquiers, investisseurs ou incubateurs.
         </p>
 
+        {/* APERÇU PDF */}
+<div style={{ marginBottom: '40px' }}>
+  <div style={{
+    fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px',
+    letterSpacing: '3px', color: '#a85b32', textTransform: 'uppercase',
+    marginBottom: '16px',
+  }}>
+    ✦ Aperçu de votre document
+  </div>
+  <div style={{
+    border: '2px solid var(--ink)', background: 'white',
+    height: '700px', overflow: 'hidden', position: 'relative',
+  }}>
+    <iframe
+      src={`/projects/${id}/pdf-render?lang=${sourceLang}&preview=1`}
+      style={{
+        width: '100%', height: '100%', border: 'none',
+        transform: 'scale(0.85)', transformOrigin: 'top center',
+      }}
+      title="Aperçu PDF"
+    />
+  </div>
+  <p style={{
+    fontSize: '12px', color: '#6b7280', marginTop: '12px',
+    fontStyle: 'italic', textAlign: 'center',
+  }}>
+    Aperçu non contractuel · Le PDF téléchargé sera identique
+  </p>
+</div>
+
         {/* TÉLÉCHARGEMENT VERSION ACTUELLE */}
         <div style={{
           background: 'white', border: '2px solid var(--ink)', padding: '40px',
