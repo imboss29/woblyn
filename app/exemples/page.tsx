@@ -109,7 +109,7 @@ export default function ExemplesPage() {
           number="02"
           eyebrow="Questionnaire guidé"
           title="33 questions pour saisir l'essentiel de votre projet."
-          description="Pas de jargon, pas d'expertise requise. Un parcours en 10 étapes qui couvre tout ce qu'attend un banquier ou un investisseur."
+          description="Pas de jargon, pas d'expertise requise. Un parcours en 11 étapes qui couvre tout ce qu'attend un banquier ou un investisseur."
           image="/screenshots/02-questionnaire.png"
           reverse={true}
         />
