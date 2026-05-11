@@ -108,6 +108,19 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
         @page {
   size: A4;
   margin: 0;
+  background: ${bg};
+}
+
+html {
+  background: ${bg} !important;
+}
+
+html, body {
+  background: ${bg} !important;
+}
+
+.section, .cover {
+  background: ${bg} !important;
 }
         @import url('https://fonts.googleapis.com/css2?family=${titleFont.replace(/ /g, '+')}:wght@400;700;900&family=${bodyFont.replace(/ /g, '+')}:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
         
@@ -125,6 +138,23 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
   print-color-adjust: exact;
 }
 
+.section {
+  background: ${bg};
+  margin: 0;
+}
+
+.cover {
+  background: ${bg};
+  margin: 0;
+}
+
+.section {
+  background: ${bg};
+}
+
+.cover {
+  background: ${bg};
+}
         .cover {
   padding: 25mm 22mm;
           page-break-after: always;
