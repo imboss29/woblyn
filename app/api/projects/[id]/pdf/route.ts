@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../../../../../lib/auth'
 import { prisma } from '../../../../../lib/prisma'
+import jwt from 'jsonwebtoken'
 
 export const maxDuration = 60
 
@@ -27,10 +28,19 @@ export async function GET(
     const lang = searchParams.get('lang') || 'fr'
 
     const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-    const printUrl = `${baseUrl}/projects/${params.id}/print?lang=${lang}&clean=1`
-
-    // Transmettre les cookies de session
-    const cookieHeader = req.headers.get('cookie') || ''
+    
+    // Génère un token temporaire (5 min) pour authentifier PDFShift
+    const pdfToken = jwt.sign(
+      { 
+        userId: session.user.id, 
+        projectId: params.id,
+        purpose: 'pdf_generation',
+      },
+      process.env.NEXTAUTH_SECRET!,
+      { expiresIn: '5m' }
+    )
+    
+    const printUrl = `${baseUrl}/projects/${params.id}/print?lang=${lang}&clean=1&token=${pdfToken}`
 
     const apiKey = process.env.PDFSHIFT_API_KEY
     if (!apiKey) {
@@ -49,13 +59,6 @@ export async function GET(
         margin: '0',
         delay: 3000,
         use_print: false,
-        cookies: cookieHeader ? cookieHeader.split(';').map(c => {
-  const [name, ...rest] = c.trim().split('=')
-  return {
-    name,
-    value: rest.join('='),
-  }
-}) : [],
       }),
     })
 

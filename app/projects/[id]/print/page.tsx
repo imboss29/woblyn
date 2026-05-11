@@ -50,16 +50,21 @@ export default function PrintPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`/api/projects/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.error) { router.push('/dashboard'); return }
-        if (!data.isPaid) { router.push(`/projects/${id}`); return }
-        setProject(data)
-        setLoading(false)
-      })
-      .catch(() => router.push('/dashboard'))
-  }, [id, router])
+  const token = searchParams.get('token')
+  const url = token 
+    ? `/api/projects/${id}?token=${token}` 
+    : `/api/projects/${id}`
+  
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) { router.push('/dashboard'); return }
+      if (!data.isPaid) { router.push(`/projects/${id}`); return }
+      setProject(data)
+      setLoading(false)
+    })
+    .catch(() => router.push('/dashboard'))
+}, [id, router, searchParams])
 
 
 
