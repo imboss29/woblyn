@@ -357,11 +357,17 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
-  margin: 12pt auto;
+  margin: 12pt auto 18pt auto;
   font-size: 8.5pt;
   page-break-inside: avoid;
   table-layout: auto;
   word-wrap: break-word;
+}
+
+.section-content table + p,
+.section-content table + h2,
+.section-content table + h3 {
+  margin-top: 18pt;
 }
 
 .section-content table thead {
