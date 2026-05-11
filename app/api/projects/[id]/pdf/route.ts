@@ -49,7 +49,6 @@ export async function GET(
         margin: '0',
         delay: 3000,
         use_print: false,
-        wait_for: 'networkidle',
         cookies: cookieHeader ? cookieHeader.split(';').map(c => {
   const [name, ...rest] = c.trim().split('=')
   return {
