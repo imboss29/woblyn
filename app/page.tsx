@@ -1,3 +1,5 @@
+import MobileNav from './MobileNav'
+
 export default function Home() {
   return (
     <>
@@ -6,22 +8,7 @@ export default function Home() {
         <span>Génération IA · Business Plans</span>
       </div>
 
-      <nav>
-  <div className="nav-left" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-    <img src="/logo.png" alt="Woblyn" style={{ height: '100px' }} />
-    <a href="#solution">Solutions</a>
-    <a href="#pricing">Tarifs</a>
-    <a href="/exemples">Exemples</a>
-  </div>
-
-        <div>
-  <div className="logo">Woblyn</div>
-  <div className="logo-sub">Business Plans</div>
-</div>
-        <div className="nav-right">
-          <a href="/signup" className="nav-cta">Commencer</a>
-        </div>
-      </nav>
+      <MobileNav />
 
       <section className="hero">
         <div className="hero-inner">

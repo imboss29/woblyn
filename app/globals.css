@@ -302,3 +302,108 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
 .legal-content a:hover {
   color: #a85b32;
 }
+
+/* === MOBILE NAV === */
+.burger-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-size: 20px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--paper);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 20px;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 1000;
+}
+
+.mobile-menu a {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 1px solid #d4cfc0;
+}
+
+.mobile-menu .mobile-cta {
+  background: var(--ink);
+  color: var(--paper);
+  text-align: center;
+  padding: 14px;
+  border: none;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 12px 20px !important;
+  }
+  
+  .nav-link-desktop,
+  .nav-center-desktop,
+  .nav-cta-desktop {
+    display: none !important;
+  }
+  
+  .burger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mobile-menu {
+    display: flex;
+  }
+  
+  .nav-left img {
+    height: 50px !important;
+  }
+
+  .topbar {
+    font-size: 9px !important;
+    padding: 6px 20px !important;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .hero h1 {
+    font-size: 48px !important;
+    line-height: 1 !important;
+  }
+  
+  .hero-lead {
+    font-size: 16px !important;
+  }
+  
+  .hero-meta {
+    flex-direction: column;
+    gap: 12px !important;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    gap: 10px !important;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
