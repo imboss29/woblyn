@@ -1,5 +1,6 @@
 import MobileNav from './MobileNav'
 import WaitlistModal from './WaitlistModal'
+import WaitlistButton from './WaitlistButton'
 
 export default function Home() {
   return (
@@ -186,8 +187,7 @@ export default function Home() {
                 <li>Historique complet</li>
                 <li>Support prioritaire</li>
               </ul>
-              <a href="mailto:contact@woblyn.com?subject=Liste d'attente Pro" className="plan-btn plan-btn-soon">Rejoindre la liste d'attente</a>
-            </div>
+<WaitlistButton plan="pro" />           </div>
             <div className="plan plan-soon">
               <div className="plan-soon-badge">Bientôt disponible</div>
               <div className="plan-name">Business</div>
@@ -199,8 +199,7 @@ export default function Home() {
                 <li>Multi-projets</li>
                 <li>Onboarding dédié</li>
               </ul>
-              <a href="mailto:contact@woblyn.com?subject=Liste d'attente Business" className="plan-btn plan-btn-soon">Rejoindre la liste d'attente</a>
-            </div>
+<WaitlistButton plan="business" />          </div>
           </div>
         </div>
       </section>
