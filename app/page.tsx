@@ -196,7 +196,7 @@ export default function Home() {
                 <li>Multi-projets</li>
                 <li>Onboarding dédié</li>
               </ul>
-              <a href="#" className="plan-btn">Contact</a>
+              <a href="#" className="plan-btn">Commencer</a>
             </div>
           </div>
         </div>
