@@ -14,7 +14,7 @@ export default function Home() {
         <div className="hero-inner">
           <div>
             <div className="hero-eyebrow">Édition Spéciale · IA Générative</div>
-            <h1>Votre business plan, <em>en 5 minutes</em>.</h1>
+            <h1>Votre business plan, <em>en 5 minutes</em> .</h1>
             <p className="hero-lead">Pendant des décennies, rédiger un business plan a été l'épreuve obligatoire qui sépare les idées des projets concrets. Woblyn change la donne : en cinq minutes, l'intelligence artificielle produit votre première version complète. Vous l'ajustez, vous l'envoyez.</p>
             <div className="hero-actions">
               <a href="/signup" className="btn-primary">Commencer →</a>
