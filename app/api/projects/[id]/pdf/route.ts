@@ -40,7 +40,7 @@ export async function GET(
       { expiresIn: '5m' }
     )
     
-    const printUrl = `${baseUrl}/projects/${params.id}/print?lang=${lang}&clean=1&token=${pdfToken}`
+    const printUrl = `${baseUrl}/projects/${params.id}/pdf-render?lang=${lang}&token=${pdfToken}`
 
     const apiKey = process.env.PDFSHIFT_API_KEY
     if (!apiKey) {
