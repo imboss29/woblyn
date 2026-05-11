@@ -157,18 +157,18 @@ export default function ExportPage() {
     ✦ Aperçu de votre document
   </div>
   <div style={{
-    border: '2px solid var(--ink)', background: 'white',
-    height: '700px', overflow: 'hidden', position: 'relative',
-  }}>
-    <iframe
-      src={`/projects/${id}/pdf-render?lang=${sourceLang}&preview=1`}
-      style={{
-        width: '100%', height: '100%', border: 'none',
-        transform: 'scale(0.85)', transformOrigin: 'top center',
-      }}
-      title="Aperçu PDF"
-    />
-  </div>
+  border: '2px solid var(--ink)',
+  height: '600px', overflow: 'hidden', position: 'relative',
+  maxWidth: '500px', margin: '0 auto',
+}}>
+  <iframe
+    src={`/projects/${id}/pdf-render?lang=${sourceLang}&preview=1`}
+    style={{
+      width: '100%', height: '100%', border: 'none', display: 'block',
+    }}
+    title="Aperçu PDF"
+  />
+</div>
   <p style={{
     fontSize: '12px', color: '#6b7280', marginTop: '12px',
     fontStyle: 'italic', textAlign: 'center',
