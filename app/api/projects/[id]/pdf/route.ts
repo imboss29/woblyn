@@ -51,13 +51,12 @@ export async function GET(
         use_print: false,
         wait_for: 'networkidle',
         cookies: cookieHeader ? cookieHeader.split(';').map(c => {
-          const [name, ...rest] = c.trim().split('=')
-          return {
-            name,
-            value: rest.join('='),
-            domain: new URL(baseUrl).hostname,
-          }
-        }) : [],
+  const [name, ...rest] = c.trim().split('=')
+  return {
+    name,
+    value: rest.join('='),
+  }
+}) : [],
       }),
     })
 
