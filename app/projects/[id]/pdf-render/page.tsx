@@ -259,6 +259,8 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
         .section {
   padding: 18mm 18mm 14mm 18mm;
   page-break-before: always;
+  page-break-after: auto;
+  page-break-inside: auto;
 }
         
         .section-header {
@@ -307,9 +309,8 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
         
         .section-content p {
   margin: 0 0 10pt 0;
-  orphans: 4;
-  widows: 4;
-  page-break-inside: avoid;
+  orphans: 3;
+  widows: 3;
 }
 
 .section-content h2 + p,
@@ -358,9 +359,13 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
   border-collapse: collapse;
   margin: 12pt auto;
   font-size: 8.5pt;
-  page-break-inside: avoid;
+  page-break-inside: auto;
   table-layout: auto;
   word-wrap: break-word;
+}
+
+.section-content table tr {
+  page-break-inside: avoid;
 }
         
         .section-content table th {
