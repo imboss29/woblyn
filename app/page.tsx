@@ -173,7 +173,8 @@ export default function Home() {
               </ul>
               <a href="/signup" className="plan-btn">Acheter</a>
             </div>
-            <div className="plan featured">
+            <div className="plan featured plan-soon">
+              <div className="plan-soon-badge">Bientôt disponible</div>
               <div className="plan-name">Pro · Populaire</div>
               <div className="plan-price">149€<span>/mois</span></div>
               <div className="plan-desc">Pour les actifs.</div>
@@ -184,9 +185,10 @@ export default function Home() {
                 <li>Historique complet</li>
                 <li>Support prioritaire</li>
               </ul>
-              <a href="/signup" className="plan-btn">Commencer</a>
+              <a href="mailto:contact@woblyn.com?subject=Liste d'attente Pro" className="plan-btn plan-btn-soon">Rejoindre la liste d'attente</a>
             </div>
-            <div className="plan">
+            <div className="plan plan-soon">
+              <div className="plan-soon-badge">Bientôt disponible</div>
               <div className="plan-name">Business</div>
               <div className="plan-price">299€<span>/mois</span></div>
               <div className="plan-desc">Cabinets & incubateurs.</div>
@@ -196,7 +198,7 @@ export default function Home() {
                 <li>Multi-projets</li>
                 <li>Onboarding dédié</li>
               </ul>
-              <a href="#" className="plan-btn">Commencer</a>
+              <a href="mailto:contact@woblyn.com?subject=Liste d'attente Business" className="plan-btn plan-btn-soon">Rejoindre la liste d'attente</a>
             </div>
           </div>
         </div>

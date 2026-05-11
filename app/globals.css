@@ -439,3 +439,37 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
     justify-content: center !important;
   }
 }
+
+.plan-soon {
+  position: relative;
+  opacity: 0.85;
+}
+
+.plan-soon-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #a85b32;
+  color: white;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.plan-btn-soon {
+  background: transparent !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--ink) !important;
+  font-size: 11px !important;
+}
+
+.plan-btn-soon:hover {
+  background: var(--ink) !important;
+  color: var(--paper) !important;
+}
