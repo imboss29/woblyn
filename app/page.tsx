@@ -1,4 +1,5 @@
 import MobileNav from './MobileNav'
+import WaitlistModal from './WaitlistModal'
 
 export default function Home() {
   return (
@@ -373,6 +374,7 @@ export default function Home() {
     </div>
   </div>
 </footer>
+      <WaitlistModal />
     </>
   )
 }

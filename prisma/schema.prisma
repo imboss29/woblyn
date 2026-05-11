@@ -107,3 +107,12 @@ enum Status {
   GENERATED
   COMPLETED
 }
+
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String
+  plan      String   // "pro" ou "business"
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
