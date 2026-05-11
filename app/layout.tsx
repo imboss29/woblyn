@@ -3,8 +3,22 @@ import type { Metadata } from 'next'
 import { Providers } from './providers'
 
 export const metadata: Metadata = {
-  title: 'Woblyn — Le business plan, réinventé',
-  description: 'Générez un business plan professionnel grâce à l\'IA.',
+  title: 'Woblyn — Créez votre business plan professionnel en 5 minutes',
+  description: 'Vous avez un projet ? Woblyn génère votre business plan complet en 5 minutes : analyse de marché, projections financières, stratégie. À partir de 97€.',
+  keywords: 'business plan, IA, intelligence artificielle, entrepreneur, startup, financement, banque, investisseur, BPI, incubateur',
+  openGraph: {
+    title: 'Woblyn — Créez votre business plan professionnel en 5 minutes',
+    description: 'Vous avez un projet ? Woblyn génère votre business plan complet en 5 minutes : analyse de marché, projections financières, stratégie. À partir de 97€.',
+    url: 'https://woblyn.com',
+    siteName: 'Woblyn',
+    locale: 'fr_FR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Woblyn — Créez votre business plan professionnel en 5 minutes',
+    description: 'Vous avez un projet ? Woblyn génère votre business plan complet en 5 minutes.',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
