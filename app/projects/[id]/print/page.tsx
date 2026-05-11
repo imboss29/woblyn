@@ -44,6 +44,7 @@ export default function PrintPage() {
   const searchParams = useSearchParams()
   const id = params.id as string
   const lang = (searchParams.get('lang') || 'fr') as 'fr' | 'en'
+  const isCleanMode = searchParams.get('clean') === '1'
 
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
@@ -60,54 +61,7 @@ export default function PrintPage() {
       .catch(() => router.push('/dashboard'))
   }, [id, router])
 
-  const containerRef = useRef<HTMLDivElement>(null)
-const isPdfMode = searchParams.get('pdf') === '1'
-const [generating, setGenerating] = useState(false)
 
-useEffect(() => {
-  if (!loading && project && isPdfMode && containerRef.current && !generating) {
-    setGenerating(true)
-    
-    // Attendre longtemps pour que tout soit prêt
-    setTimeout(async () => {
-      try {
-        console.log('[PDF] Container content:', containerRef.current?.innerHTML?.substring(0, 200))
-        console.log('[PDF] Container dimensions:', containerRef.current?.offsetWidth, 'x', containerRef.current?.offsetHeight)
-        
-        if (!containerRef.current) {
-          alert('Container introuvable')
-          return
-        }
-        
-        const html2pdf = (await import('html2pdf.js')).default
-        const filename = `${project.name.replace(/[^a-z0-9]/gi, '_')}_${lang.toUpperCase()}.pdf`
-        
-        const opt: any = {
-          margin: [10, 10, 10, 10],
-          filename,
-          image: { type: 'jpeg', quality: 0.95 },
-          html2canvas: { 
-            scale: 1.5, 
-            useCORS: true, 
-            letterRendering: true,
-            logging: true,
-            backgroundColor: '#ffffff',
-            windowWidth: 800,
-          },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-          pagebreak: { mode: ['avoid-all', 'css'], before: '.print-page' },
-        }
-        
-        await html2pdf().set(opt).from(containerRef.current).save()
-        
-        setTimeout(() => window.close(), 2000)
-      } catch (err: any) {
-        console.error('PDF generation error:', err)
-        alert('Erreur: ' + (err.message || 'inconnu'))
-      }
-    }, 5000)
-  }
-}, [loading, project, isPdfMode])
 
   if (loading || !project) {
     return (
@@ -136,9 +90,9 @@ useEffect(() => {
   const labels = lang === 'en' ? SECTION_LABELS_EN : SECTION_LABELS_FR
 
   return (
-  <div ref={containerRef} style={{ background: 'white' }}>
+  <div style={{ background: 'white' }}>
       
-      {!isPdfMode && (
+      {!isCleanMode && (
   <div className="no-print" style={{
     position: 'fixed', top: 20, left: 20, right: 20, zIndex: 1000,
     background: '#0d1b2a', color: 'white', padding: '20px 24px',
@@ -162,29 +116,7 @@ useEffect(() => {
   </div>
 )}
 
-{isPdfMode && generating && (
-  <div style={{
-    position: 'fixed', inset: 0, background: 'rgba(13,27,42,0.95)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    zIndex: 9999, color: 'white', flexDirection: 'column', gap: '20px',
-  }}>
-    <div style={{
-      fontFamily: '"IBM Plex Mono", monospace', fontSize: '11px',
-      letterSpacing: '4px', color: '#a85b32', textTransform: 'uppercase',
-    }}>
-      ✦ Génération en cours
-    </div>
-    <div style={{
-      fontFamily: '"Playfair Display", serif', fontSize: '40px', fontWeight: 900,
-      letterSpacing: '-1px', textAlign: 'center',
-    }}>
-      Création de votre PDF...
-    </div>
-    <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)' }}>
-      Cela prend 10 à 30 secondes selon la longueur du document
-    </div>
-  </div>
-)}
+
 
       {/* COUVERTURE */}
       <div className={`print-page template-${baseTheme.style}`} style={{

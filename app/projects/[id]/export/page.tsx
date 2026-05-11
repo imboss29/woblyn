@@ -40,15 +40,24 @@ export default function ExportPage() {
   const downloadPDF = async (lang: 'fr' | 'en') => {
   setDownloading(lang)
   try {
-    // Ouvre la page print dans un onglet caché
-    const printWindow = window.open(`/projects/${id}/print?lang=${lang}&pdf=1`, '_blank')
-    if (!printWindow) throw new Error('Veuillez autoriser les popups pour télécharger le PDF')
+    const res = await fetch(`/api/projects/${id}/pdf?lang=${lang}`)
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}))
+      throw new Error(errorData.error || 'Erreur lors de la génération du PDF')
+    }
     
-    // L'onglet print va générer et télécharger le PDF lui-même
-    // On reset le state après quelques secondes
-    setTimeout(() => setDownloading(null), 3000)
+    const blob = await res.blob()
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${project?.name || 'business-plan'}_${lang.toUpperCase()}.pdf`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
   } catch (err: any) {
     alert(err.message || 'Erreur lors de la génération du PDF')
+  } finally {
     setDownloading(null)
   }
 }
