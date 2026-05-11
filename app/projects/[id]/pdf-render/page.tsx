@@ -300,8 +300,8 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
 }
         
         .section-content {
-  font-size: 10.5pt;
-  line-height: 1.6;
+  font-size: 10pt;
+  line-height: 1.55;
   color: ${text};
   text-align: justify;
   hyphens: auto;
@@ -359,9 +359,13 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
   border-collapse: collapse;
   margin: 12pt auto;
   font-size: 8.5pt;
-  page-break-inside: auto;
+  page-break-inside: avoid;
   table-layout: auto;
   word-wrap: break-word;
+}
+
+.section-content table thead {
+  display: table-header-group;
 }
 
 .section-content table tr {
