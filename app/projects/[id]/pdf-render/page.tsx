@@ -113,17 +113,17 @@ const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment
         
         * { box-sizing: border-box; }
         
-        body {
-          margin: 0;
-          padding: 0;
-          background: ${bg};
-          color: ${text};
-          font-family: "${bodyFont}", sans-serif;
-          font-size: 11pt;
-          line-height: 1.55;
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-        }
+        html, body {
+  margin: 0;
+  padding: 0;
+  background: ${bg} !important;
+  color: ${text};
+  font-family: "${bodyFont}", sans-serif;
+  font-size: 11pt;
+  line-height: 1.55;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
 
         .cover {
   padding: 25mm 22mm;

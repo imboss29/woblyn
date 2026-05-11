@@ -54,12 +54,13 @@ export async function GET(
         'Authorization': 'Basic ' + Buffer.from('api:' + apiKey).toString('base64'),
       },
       body: JSON.stringify({
-        source: printUrl,
-        format: 'A4',
-        margin: '0',
-        delay: 3000,
-        use_print: false,
-      }),
+  source: printUrl,
+  format: 'A4',
+  margin: '0',
+  delay: 3000,
+  use_print: false,
+  raw_data: true,
+}),
     })
 
     if (!pdfResponse.ok) {
