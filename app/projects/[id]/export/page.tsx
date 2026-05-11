@@ -158,13 +158,17 @@ export default function ExportPage() {
   </div>
   <div style={{
   border: '2px solid var(--ink)',
-  height: '600px', overflow: 'hidden', position: 'relative',
-  maxWidth: '500px', margin: '0 auto',
+  width: '595px', height: '842px', // A4 ratio
+  maxWidth: '100%', margin: '0 auto',
+  overflow: 'hidden', position: 'relative',
 }}>
   <iframe
     src={`/projects/${id}/pdf-render?lang=${sourceLang}&preview=1`}
     style={{
-      width: '100%', height: '100%', border: 'none', display: 'block',
+      width: '794px', height: '1123px', // taille réelle A4 en px
+      border: 'none', display: 'block',
+      transform: 'scale(0.75)',
+      transformOrigin: 'top left',
     }}
     title="Aperçu PDF"
   />
