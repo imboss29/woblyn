@@ -80,9 +80,23 @@ export default function PdfRenderPage() {
   const labels = lang === 'en' ? SECTION_LABELS_EN : SECTION_LABELS_FR
 
   const fd = project.formData || {}
-  const ca1 = fd.revenueY1 || fd.ca1 || ''
-  const ca3 = fd.revenueY3 || fd.ca3 || ''
-  const invest = fd.investment || fd.investissement || ''
+
+// Format un nombre en €
+const formatEuro = (n: number): string => {
+  if (!n || isNaN(n)) return ''
+  return new Intl.NumberFormat('fr-FR').format(Math.round(n)) + '€'
+}
+
+// Calcul du CA Année 1 (montée en charge linéaire 30% → 100%)
+const monthlyVolume = parseFloat(fd.monthlyVolume) || 0
+const averagePrice = parseFloat(fd.averagePrice) || 0
+const ca1Raw = monthlyVolume && averagePrice 
+  ? monthlyVolume * averagePrice * 12 * 0.65 // 65% = moyenne montée en charge
+  : 0
+
+const ca1 = ca1Raw ? formatEuro(ca1Raw) : ''
+const ca3 = fd.revenueY3 ? formatEuro(parseFloat(fd.revenueY3)) : ''
+const invest = fd.initialInvestment ? formatEuro(parseFloat(fd.initialInvestment)) : ''
 
   const today = new Date().toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
     day: 'numeric', month: 'long', year: 'numeric',
@@ -292,10 +306,16 @@ export default function PdfRenderPage() {
 }
         
         .section-content p {
-          margin: 0 0 10pt 0;
-          orphans: 3;
-          widows: 3;
-        }
+  margin: 0 0 10pt 0;
+  orphans: 4;
+  widows: 4;
+  page-break-inside: avoid;
+}
+
+.section-content h2 + p,
+.section-content h3 + p {
+  page-break-before: avoid;
+}
         
         .section-content h2 {
           font-family: "${titleFont}", serif;
