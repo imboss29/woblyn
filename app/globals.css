@@ -354,6 +354,9 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
 @media (max-width: 768px) {
   nav {
     padding: 12px 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
   }
   
   .nav-link-desktop,
@@ -362,8 +365,18 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
     display: none !important;
   }
   
+  .nav-left {
+    flex: 1;
+  }
+  
+  .nav-right {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+  
   .burger-btn {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
   }
@@ -373,7 +386,7 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
   }
   
   .nav-left img {
-    height: 50px !important;
+    height: 80px !important;
   }
 
   .topbar {
@@ -405,5 +418,8 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
   .btn-primary, .btn-secondary {
     width: 100%;
     text-align: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
