@@ -360,10 +360,26 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
   }
   
   .nav-link-desktop,
-  .nav-center-desktop,
-  .nav-cta-desktop {
-    display: none !important;
-  }
+.nav-cta-desktop {
+  display: none !important;
+}
+
+.nav-center-desktop {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-center-desktop .logo {
+  font-size: 22px !important;
+}
+
+.nav-center-desktop .logo-sub {
+  font-size: 8px !important;
+}
   
   .nav-left {
     flex: 1;
@@ -386,8 +402,8 @@ footer { background: var(--ink); color: var(--paper); padding: 60px; }
   }
   
   .nav-left img {
-    height: 80px !important;
-  }
+  height: 100px !important;
+}
 
   .topbar {
     font-size: 9px !important;
