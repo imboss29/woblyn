@@ -243,9 +243,9 @@ export default function PdfRenderPage() {
         }
 
         .section {
-          padding: 22mm 22mm 18mm 22mm;
-          page-break-before: always;
-        }
+  padding: 18mm 18mm 14mm 18mm;
+  page-break-before: always;
+}
         
         .section-header {
           display: flex;
@@ -263,29 +263,33 @@ export default function PdfRenderPage() {
         }
         
         .section-chapter {
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 9pt;
-          letter-spacing: 3pt;
-          text-transform: uppercase;
-          color: ${accent};
-          margin-bottom: 6pt;
-        }
-        
-        .section-title {
-          font-family: "${titleFont}", serif;
-          font-size: 36pt;
-          font-weight: 900;
-          letter-spacing: -1.5pt;
-          line-height: 1;
-          color: ${text};
-          margin: 0 0 18pt 0;
-        }
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9pt;
+  letter-spacing: 3pt;
+  text-transform: uppercase;
+  color: ${accent};
+  margin-bottom: 8pt;
+  text-align: center;
+}
+
+.section-title {
+  font-family: "${titleFont}", serif;
+  font-size: 32pt;
+  font-weight: 900;
+  letter-spacing: -1pt;
+  line-height: 1.05;
+  color: ${text};
+  margin: 0 0 24pt 0;
+  text-align: center;
+}
         
         .section-content {
-          font-size: 10.5pt;
-          line-height: 1.65;
-          color: ${text};
-        }
+  font-size: 10.5pt;
+  line-height: 1.6;
+  color: ${text};
+  text-align: justify;
+  hyphens: auto;
+}
         
         .section-content p {
           margin: 0 0 10pt 0;
@@ -329,31 +333,39 @@ export default function PdfRenderPage() {
         }
         
         .section-content table {
-          width: 100%;
-          border-collapse: collapse;
-          margin: 10pt 0;
-          font-size: 9.5pt;
-          page-break-inside: avoid;
-        }
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin: 12pt auto;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+  table-layout: auto;
+  word-wrap: break-word;
+}
         
         .section-content table th {
-          background: ${text};
-          color: ${bg};
-          font-family: "IBM Plex Mono", monospace;
-          font-size: 8.5pt;
-          font-weight: 600;
-          letter-spacing: 1pt;
-          text-transform: uppercase;
-          padding: 8pt 10pt;
-          text-align: left;
-          border: 1pt solid ${text};
-        }
-        
-        .section-content table td {
-          padding: 7pt 10pt;
-          border: 1pt solid ${text}30;
-          font-size: 10pt;
-        }
+  background: ${text};
+  color: ${bg};
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 7.5pt;
+  font-weight: 600;
+  letter-spacing: 0.5pt;
+  text-transform: uppercase;
+  padding: 6pt 8pt;
+  text-align: left;
+  border: 1pt solid ${text};
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.section-content table td {
+  padding: 6pt 8pt;
+  border: 1pt solid ${text}30;
+  font-size: 8.5pt;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  vertical-align: top;
+}
         
         .section-content table tr:nth-child(even) td {
           background: ${text}05;
