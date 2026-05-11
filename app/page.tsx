@@ -3,10 +3,7 @@ import MobileNav from './MobileNav'
 export default function Home() {
   return (
     <>
-      <div className="topbar">
-        <span>Édition · Mai 2025</span>
-        <span>Génération IA · Business Plans</span>
-      </div>
+      <div className="topbar"></div>
 
       <MobileNav />
 
