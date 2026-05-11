@@ -59,7 +59,6 @@ export async function GET(
   margin: '0',
   delay: 3000,
   use_print: false,
-  raw_data: true,
 }),
     })
 
