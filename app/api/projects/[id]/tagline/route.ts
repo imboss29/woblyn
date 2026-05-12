@@ -4,6 +4,7 @@ import { authOptions } from '../../../../../lib/auth'
 import { prisma } from '../../../../../lib/prisma'
 import { generateSection } from '../../../../../lib/anthropic'
 import { FormData } from '../../../../../lib/prompts'
+import { expensiveRatelimit, getIp } from '../../../../../lib/ratelimit'
 
 export const maxDuration = 30
 
@@ -24,6 +25,15 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
+    const ip = getIp(req)
+    const { success } = await expensiveRatelimit.limit(ip)
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Trop de requêtes. Réessayez dans 1 minute.' },
+        { status: 429 }
+      )
+    }
+
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
 
