@@ -13,6 +13,7 @@
     "@auth/prisma-adapter": "^2.11.2",
     "@prisma/client": "^6.19.3",
     "@sentry/nextjs": "^10.53.0",
+    "@stripe/stripe-js": "^9.5.0",
     "@tiptap/extension-placeholder": "^3.23.1",
     "@tiptap/pm": "^3.23.1",
     "@tiptap/react": "^3.23.1",
@@ -28,7 +29,8 @@
     "react-dom": "^18",
     "react-markdown": "^10.1.0",
     "recharts": "^3.8.1",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "stripe": "^22.1.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

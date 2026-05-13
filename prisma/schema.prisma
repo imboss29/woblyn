@@ -93,8 +93,10 @@ model Project {
   contentFR  Json?
   hasTranslation Boolean @default(false)
   
-  isPaid      Boolean  @default(false)
-  paidAt      DateTime?
+  isPaid              Boolean   @default(false)
+  paidAt              DateTime?
+  stripeSessionId     String?   @unique
+  stripePaymentIntent String?
   
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   
