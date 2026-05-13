@@ -59,26 +59,29 @@ export default function Home() {
       </section>
 
       <div className="section-head">
-        <div className="section-cat">Article 01 · Le constat</div>
-        <h2 className="section-title">Trois obstacles. Une <em>solution</em>.</h2>
+        <div className="section-cat">Article 01 · Le constat du marché</div>
+        <h2 className="section-title">Pourquoi <em>80%</em> des entrepreneurs<br/>échouent à finir leur BP.</h2>
+        <p style={{ fontSize: '16px', color: 'var(--ink-soft)', marginTop: '16px', maxWidth: '700px', fontWeight: 300, lineHeight: 1.6 }}>
+          Voici les trois obstacles auxquels chaque créateur d'entreprise est confronté aujourd'hui — et que Woblyn a été conçu pour résoudre.
+        </p>
       </div>
 
       <section className="problem">
         <div className="problem-grid">
           <div className="problem-item">
-            <div className="problem-num">N° 01 — Le temps</div>
+            <div className="problem-num">Obstacle 01 — Le temps</div>
             <h3>Six semaines.</h3>
-            <p>C'est le temps moyen passé par un entrepreneur à rédiger un business plan complet. Six semaines pendant lesquelles le projet n'avance pas, le marché évolue, les opportunités passent.</p>
+            <p>C'est le temps moyen passé par un entrepreneur à rédiger un business plan classique. Six semaines pendant lesquelles le projet n'avance pas, le marché évolue, les opportunités passent. <strong>Avec Woblyn : 5 minutes.</strong></p>
           </div>
           <div className="problem-item">
-            <div className="problem-num">N° 02 — Le coût</div>
+            <div className="problem-num">Obstacle 02 — Le coût</div>
             <h3>1 500€.</h3>
-            <p>Le tarif moyen d'un cabinet spécialisé. Inaccessible pour la majorité des créateurs en phase d'amorçage, qui doivent souvent choisir entre business plan et trésorerie de démarrage.</p>
+            <p>Le tarif moyen d'un cabinet spécialisé pour rédiger un business plan. Inaccessible pour la majorité des créateurs en phase d'amorçage. <strong>Avec Woblyn : 97€ en paiement unique.</strong></p>
           </div>
           <div className="problem-item">
-            <div className="problem-num">N° 03 — La qualité</div>
+            <div className="problem-num">Obstacle 03 — La qualité</div>
             <h3>40% de refus.</h3>
-            <p>La part des dossiers de financement refusés à cause d'un business plan incomplet ou mal présenté. La forme compte autant que le fond — et les détails font la différence.</p>
+            <p>La part des dossiers de financement refusés à cause d'un business plan incomplet ou mal présenté. La forme compte autant que le fond. <strong>Avec Woblyn : un rendu professionnel, prêt à présenter.</strong></p>
           </div>
         </div>
       </section>
