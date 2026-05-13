@@ -85,20 +85,7 @@ export default async function ProjectPage({ params }: { params: { id: string } }
       ✎ Personnaliser le document →
     </a>
   ) : (
-    <a href={`/checkout/${project.id}`} style={{
-      background: '#a85b32',
-      color: 'white',
-      padding: '16px 24px',
-      fontSize: '13px',
-      fontWeight: 600,
-      letterSpacing: '1.5px',
-      textTransform: 'uppercase',
-      textDecoration: 'none',
-      fontFamily: '"IBM Plex Mono", monospace',
-      whiteSpace: 'nowrap',
-    }}>
-      Débloquer pour seulement 97€ →
-    </a>
+    <CheckoutButton projectId={project.id} />
   )}
 </div>
 
