@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { SECTION_KEYS, SECTION_LABELS, SectionKey } from '../../../lib/prompts'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import CheckoutButton from '../../CheckoutButton'
 
 export default async function ProjectPage({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions)
@@ -214,38 +215,7 @@ export default async function ProjectPage({ params }: { params: { id: string } }
             <p style={{ fontSize: '15px', color: 'rgba(255,255,255,0.7)', marginBottom: '32px', maxWidth: '500px', margin: '0 auto 32px' }}>
               Accédez aux projections financières, plan de financement, analyse des risques et exportez en PDF/Word.
             </p>
-            <button onClick={async () => {
-  try {
-    const res = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ projectId: project.id }),
-    })
-    const data = await res.json()
-    if (data.url) {
-      window.location.href = data.url
-    } else {
-      alert(data.error || 'Erreur lors du paiement')
-    }
-  } catch (err) {
-    alert('Erreur de connexion')
-  }
-}} style={{
-  background: '#a85b32',
-  color: 'white',
-  padding: '16px 32px',
-  fontSize: '13px',
-  fontWeight: 600,
-  letterSpacing: '1.5px',
-  textTransform: 'uppercase',
-  textDecoration: 'none',
-  display: 'inline-block',
-  border: 'none',
-  cursor: 'pointer',
-  fontFamily: 'inherit',
-}}>
-  Débloquer pour 97€ →
-</button>
+            <CheckoutButton projectId={project.id} />
           </div>
         )}
 
