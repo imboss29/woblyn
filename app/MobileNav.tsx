@@ -20,7 +20,7 @@ export default function MobileNav() {
       </div>
 
       <div className="nav-right">
-        <a href="/signup" className="nav-cta nav-cta-desktop">Commencer</a>
+        <a href="/login" className="nav-cta nav-cta-desktop">Se connecter</a>
         <button 
           className="burger-btn"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -35,9 +35,9 @@ export default function MobileNav() {
           <a href="#solution" onClick={() => setMenuOpen(false)}>Solutions</a>
           <a href="#pricing" onClick={() => setMenuOpen(false)}>Tarifs</a>
           <a href="/exemples" onClick={() => setMenuOpen(false)}>Exemples</a>
-          <a href="/signup" onClick={() => setMenuOpen(false)} className="mobile-cta">
-            Commencer →
-          </a>
+          <a href="/login" onClick={() => setMenuOpen(false)} className="mobile-cta">
+  Se connecter →
+</a>
         </div>
       )}
     </nav>

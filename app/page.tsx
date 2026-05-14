@@ -12,9 +12,9 @@ export default function Home() {
       <section className="hero">
         <div className="hero-inner">
           <div>
-            <div className="hero-eyebrow">Édition Spéciale · IA Générative</div>
-            <h1>Votre business plan, <em>en 5 minutes</em>.</h1>
-            <p className="hero-lead">Pendant des décennies, rédiger un business plan a été l'épreuve obligatoire qui sépare les idées des projets concrets. Woblyn change la donne : en cinq minutes, l'intelligence artificielle produit votre première version complète. Vous l'ajustez, vous l'envoyez.</p>
+            <div className="hero-eyebrow">Le BP qui débloque votre financement</div>
+            <h1>Votre business plan, <em>en&nbsp;5&nbsp;minutes</em>.</h1>
+            <p className="hero-lead">Pendant des décennies, rédiger un business plan a été l'épreuve obligatoire qui sépare les idées des projets concrets. Woblyn change la donne : en 5 minutes, vous obtenez votre première version complète. Vous l'ajustez, vous l'envoyez à votre banque ou à vos investisseurs.</p>
             <div className="hero-actions">
               <a href="/signup" className="btn-primary">Commencer →</a>
               <a href="#" className="btn-secondary">Voir un exemple</a>
@@ -28,14 +28,14 @@ export default function Home() {
 
           <div className="hero-right">
             <div className="hero-quote">
-              <div className="hero-quote-text">"On a obtenu notre prêt bancaire avec un business plan généré par Woblyn."</div>
-              <div className="hero-quote-author">— Marc D., fondateur</div>
-            </div>
+  <div className="hero-quote-text">"Le rendu est bluffant. Mon banquier a tout de suite pris mon projet au sérieux."</div>
+  <div className="hero-quote-author">— Mélanie S., cliente Woblyn</div>
+</div>
 
             <div className="hero-doc">
               <div className="hero-doc-header">
-                <div className="hero-doc-cat">Document Confidentiel</div>
-                <div className="hero-doc-title">Business Plan 2025</div>
+                <div className="hero-doc-cat">Exemple · Aperçu Woblyn</div>
+                <div className="hero-doc-title">Business Plan 2026</div>
               </div>
               <div className="hero-doc-stat">
                 <span>Chiffre d'affaires Y1</span>
@@ -60,9 +60,9 @@ export default function Home() {
 
       <div className="section-head">
         <div className="section-cat">Article 01 · Le constat du marché</div>
-        <h2 className="section-title">Pourquoi <em>80%</em> des entrepreneurs<br/>échouent à finir leur BP.</h2>
+        <h2 className="section-title">Pourquoi <em>80%</em> des entrepreneurs<br/>échouent à finir leur Business Plan.</h2>
         <p style={{ fontSize: '16px', color: 'var(--ink-soft)', marginTop: '16px', maxWidth: '700px', fontWeight: 300, lineHeight: 1.6 }}>
-          Voici les trois obstacles auxquels chaque créateur d'entreprise est confronté aujourd'hui — et que Woblyn a été conçu pour résoudre.
+          Voici les trois obstacles auxquels chaque créateur d'entreprise est confronté aujourd'hui, et que Woblyn a été conçu pour résoudre.
         </p>
       </div>
 
@@ -86,9 +86,37 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="section-head">
+        <div className="section-cat">Article 02 · Les usages</div>
+        <h2 className="section-title">Pourquoi vous avez besoin <em>d'un business plan</em>.</h2>
+        <p style={{ fontSize: '16px', color: 'var(--ink-soft)', marginTop: '16px', maxWidth: '700px', fontWeight: 300, lineHeight: 1.6 }}>
+          Quel que soit votre objectif, un business plan professionnel reste le document indispensable pour transformer une idée en projet crédible.
+        </p>
+      </div>
+
+      <section className="problem">
+        <div className="problem-grid">
+          <div className="problem-item">
+            <div className="problem-num">Usage 01 — Démarrage</div>
+            <h3>Création d'entreprise.</h3>
+            <p>Pour structurer votre projet, valider sa viabilité économique et clarifier votre stratégie avant de vous lancer. Le BP devient votre <strong>document de cadrage</strong>, indispensable pour convaincre vos premiers partenaires.</p>
+          </div>
+          <div className="problem-item">
+            <div className="problem-num">Usage 02 — Financement</div>
+            <h3>Prêt bancaire.</h3>
+            <p>Pour obtenir un <strong>prêt professionnel</strong> auprès de la BPI France, d'une banque traditionnelle ou via un prêt d'honneur. Les banquiers exigent des projections financières détaillées et un plan de remboursement crédible.</p>
+          </div>
+          <div className="problem-item">
+            <div className="problem-num">Usage 03 — Investisseurs</div>
+            <h3>Levée de fonds.</h3>
+            <p>Pour convaincre des <strong>business angels, fonds d'investissement ou VC</strong>. Le BP devient votre support de pitch et votre data room. Focus sur la vision, le marché adressable, l'équipe et le potentiel de croissance.</p>
+          </div>
+        </div>
+      </section>
+
       <section className="process" id="solution">
         <div className="process-inner">
-          <div className="section-cat">Article 02 · La méthode</div>
+          <div className="section-cat">Article 03 · La méthode</div>
           <h2 className="section-title">Comment ça <em>fonctionne</em>.</h2>
 
           <div className="process-grid">
@@ -98,21 +126,21 @@ export default function Home() {
               <p>Un questionnaire guidé vous permet d'expliquer votre projet en quelques minutes. Pas de jargon, pas d'expertise requise.</p>
             </div>
             <div className="process-step">
-              <div className="process-step-num">II</div>
-              <h3>Générez</h3>
-              <p>L'intelligence artificielle rédige chaque section et calcule vos projections financières en respectant les standards du métier.</p>
-            </div>
+  <div className="process-step-num">II</div>
+  <h3>Générez</h3>
+  <p>Woblyn rédige chaque section et calcule vos projections financières en respectant les standards du métier. En 5 minutes chrono.</p>
+</div>
             <div className="process-step">
               <div className="process-step-num">III</div>
               <h3>Téléchargez</h3>
-              <p>Votre document est mis en page automatiquement. Format PDF ou Word, prêt à être ajusté puis envoyé à votre banque ou vos investisseurs.</p>
+              <p>Votre document est mis en page automatiquement. Format PDF, prêt à être ajusté puis envoyé à votre banque ou vos investisseurs.</p>
             </div>
           </div>
         </div>
       </section>
 
       <div className="section-head">
-        <div className="section-cat">Article 03 · Les fonctionnalités</div>
+        <div className="section-cat">Article 04 · Les fonctionnalités</div>
         <h2 className="section-title">Tout ce qu'il <em>faut</em>, rien de superflu.</h2>
       </div>
 
@@ -143,7 +171,7 @@ export default function Home() {
             <div className="feature-num">04</div>
             <div>
               <h3>Export instantané</h3>
-              <p>Téléchargez votre document en PDF ou Word en un clic, prêt à être envoyé à un banquier, un investisseur ou un partenaire.</p>
+              <p>Téléchargez votre document en PDF en un clic, prêt à être envoyé à un banquier, un investisseur ou un partenaire.</p>
             </div>
           </div>
         </div>
@@ -151,7 +179,7 @@ export default function Home() {
 
       <section className="pricing" id="pricing">
         <div className="pricing-inner">
-          <div className="section-cat">Article 04 · Tarifs</div>
+          <div className="section-cat">Article 05 · Tarifs</div>
           <h2 className="section-title">Une grille <em>simple</em>.</h2>
 
           <div className="pricing-grid">
@@ -162,7 +190,7 @@ export default function Home() {
               <ul className="plan-features">
                 <li>Aperçu 3 sections</li>
                 <li>Projections masquées</li>
-                <li className="disabled">Export PDF / Word</li>
+                <li className="disabled">Export PDF</li>
               </ul>
               <a href="/signup" className="plan-btn">Commencer</a>
             </div>
@@ -173,7 +201,7 @@ export default function Home() {
               <ul className="plan-features">
                 <li>1 business plan complet</li>
                 <li>Projections financières</li>
-                <li>Export PDF + Word</li>
+                <li>Export PDF</li>
                 <li>Design professionnel</li>
               </ul>
               <a href="/signup" className="plan-btn">Acheter</a>
@@ -186,7 +214,7 @@ export default function Home() {
               <ul className="plan-features">
                 <li>Plans illimités</li>
                 <li>Projections avancées</li>
-                <li>Export PDF + Word</li>
+                <li>Export PDF</li>
                 <li>Historique complet</li>
                 <li>Support prioritaire</li>
               </ul>
@@ -355,7 +383,7 @@ export default function Home() {
   <div style={{ flex: 1, height: '1px', background: 'var(--ink)' }} />
 </div>
       <section className="cta-section">
-        <h2 className="cta-quote">Votre business plan, <em>en 5 minutes</em>.</h2>
+        <h2 className="cta-quote">Votre business plan, <em>en&nbsp;5&nbsp;minutes</em>.</h2>
         <a href="/signup" className="btn-primary">Commencer maintenant →</a>
       </section>
 
