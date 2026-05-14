@@ -13,7 +13,7 @@ export default function Home() {
         <div className="hero-inner">
           <div>
             <div className="hero-eyebrow">Le BP qui débloque votre financement</div>
-            <h1>Votre business plan, <em>en&nbsp;5&nbsp;minutes</em>.</h1>
+            <h1>Votre business<br/>plan, <em>en&nbsp;5&nbsp;minutes</em>.</h1>
             <p className="hero-lead">Pendant des décennies, rédiger un business plan a été l'épreuve obligatoire qui sépare les idées des projets concrets. Woblyn change la donne : en 5 minutes, vous obtenez votre première version complète. Vous l'ajustez, vous l'envoyez à votre banque ou à vos investisseurs.</p>
             <div className="hero-actions">
               <a href="/signup" className="btn-primary">Commencer →</a>
