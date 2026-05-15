@@ -44,7 +44,7 @@ nav {
 .hero-inner { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; }
 .hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 3px; color: var(--blue); text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
 .hero-eyebrow::before { content: ''; width: 30px; height: 2px; background: var(--blue); }
-.hero h1 { font-family: 'Playfair Display', serif; font-size: 96px; font-weight: 900; line-height: 0.95; letter-spacing: -3px; color: var(--ink); margin-bottom: 32px; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 84px; font-weight: 900; line-height: 0.95; letter-spacing: -3px; color: var(--ink); margin-bottom: 32px; }
 .hero h1 em { font-style: italic; font-weight: 400; color: var(--blue); }
 .hero-lead { font-size: 22px; font-weight: 300; line-height: 1.5; color: var(--ink-soft); margin-bottom: 40px; max-width: 580px; }
 .hero-lead::first-letter { font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 900; float: left; line-height: 0.9; margin: 4px 8px 0 0; color: var(--blue); }
