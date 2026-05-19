@@ -53,6 +53,8 @@ type FormData = {
   visualStyle: string
   hasLogo: string
   logoUrl: string
+  // 11. Précisions
+  additionalDetails: string
 }
 
 const initialForm: FormData = {
@@ -66,6 +68,7 @@ const initialForm: FormData = {
   growthY2: '', growthY3: '', revenueY3: '',
   foundersCount: '', founderProfile: '', hiringPlan: '', keySkills: '',
   visionY5: '', risks: '', exitStrategy: '', primaryColorChoice: '', visualStyle: '', hasLogo: '', logoUrl: '',
+  additionalDetails: '',
 }
 
 export default function NewProjectPage() {
@@ -150,34 +153,6 @@ function Step1({ form, update }: any) {
   return <>
     <Header cat="01 — Le projet" title="Parlez-nous de votre projet." />
 
-    <div style={{ marginBottom: '24px', padding: '20px', background: '#f4f1ea', border: '1px solid #d4cfc0' }}>
-      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, marginBottom: '12px', fontFamily: '"IBM Plex Mono", monospace', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#a85b32' }}>
-        ✦ Langue du business plan
-      </label>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-        <button type="button" onClick={() => update('language', 'fr')} style={{
-          padding: '14px', border: `2px solid ${form.language === 'fr' ? '#0d1b2a' : '#d4cfc0'}`,
-          background: form.language === 'fr' ? '#0d1b2a' : 'white',
-          color: form.language === 'fr' ? 'white' : '#0d1b2a',
-          fontSize: '14px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-        }}>
-          🇫🇷 Français
-        </button>
-        <button type="button" onClick={() => update('language', 'en')} style={{
-          padding: '14px', border: `2px solid ${form.language === 'en' ? '#0d1b2a' : '#d4cfc0'}`,
-          background: form.language === 'en' ? '#0d1b2a' : 'white',
-          color: form.language === 'en' ? 'white' : '#0d1b2a',
-          fontSize: '14px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-        }}>
-          🇬🇧 English
-        </button>
-      </div>
-      <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '10px', lineHeight: 1.5 }}>
-        Vous pouvez répondre aux questions dans la langue de votre choix. L'IA générera le business plan dans la langue sélectionnée ici.
-      </div>
-    </div>
 
     <Field label="Nom du projet ou de l'entreprise" value={form.projectName} onChange={(v: string) => update('projectName', v)} placeholder="Ex: Bistrot Lumière" />
     <Field label="Décrivez votre activité en 1-2 phrases" value={form.activity} onChange={(v: string) => update('activity', v)} placeholder="Ex: Restaurant bistronomique avec produits locaux..." textarea />
@@ -216,6 +191,16 @@ function Step3({ form, update }: any) {
 function Step4({ form, update }: any) {
   return <>
     <Header cat="04 — Modèle économique" title="Comment vous gagnez de l'argent." />
+    
+    <div style={{ marginBottom: '24px', padding: '16px 20px', background: '#fff7ed', border: '1px solid #fed7aa', borderLeft: '4px solid #a85b32' }}>
+      <div style={{ fontFamily: '"IBM Plex Mono", monospace', fontSize: '10px', letterSpacing: '2px', color: '#a85b32', textTransform: 'uppercase', marginBottom: '8px', fontWeight: 600 }}>
+        ✦ Bon à savoir
+      </div>
+      <div style={{ fontSize: '13px', color: '#374151', lineHeight: 1.6 }}>
+        Pas sûr de vos chiffres ? Pas de panique. Donnez vos <strong>meilleures estimations</strong> — l'IA s'adaptera et vous pourrez tout modifier ensuite dans l'éditeur. L'objectif est d'avoir une première base réaliste.
+      </div>
+    </div>
+    
     <Select label="Modèle de revenus" value={form.revenueModel} onChange={(v: string) => update('revenueModel', v)} options={[
       'Vente directe (produit)','Prestation de service','Abonnement / SaaS','Commission / marketplace','Publicité','Mixte','Autre'
     ]} />
@@ -472,6 +457,26 @@ function StepVisual({ form, update }: any) {
           />
         </>
       )}
+    </div>
+
+    {/* PRÉCISIONS LIBRES */}
+    <div style={{ marginTop: '40px', padding: '24px', background: '#fff7ed', border: '1px solid #fed7aa', borderLeft: '4px solid #a85b32' }}>
+      <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, marginBottom: '8px', fontFamily: '"IBM Plex Mono", monospace', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#a85b32' }}>
+        ✦ Précisions complémentaires (optionnel)
+      </label>
+      <div style={{ fontSize: '13px', color: '#374151', lineHeight: 1.6, marginBottom: '12px' }}>
+        Vous voulez préciser un élément spécifique à votre projet ? Donner du contexte à l'IA ? C'est ici. Plus vous êtes précis, plus le business plan sera personnalisé.
+      </div>
+      <textarea
+        value={form.additionalDetails || ''}
+        onChange={(e) => update('additionalDetails', e.target.value)}
+        placeholder="Ex: Nous serons 3 fondateurs avec des compétences complémentaires. Notre plus gros défi sera de trouver un local à moins de 30k€. On vise plutôt le segment haut de gamme..."
+        rows={6}
+        style={{ width: '100%', padding: '14px', border: '1px solid #d4cfc0', fontSize: '13px', outline: 'none', fontFamily: 'inherit', resize: 'vertical', background: 'white' }}
+      />
+      <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '8px', textAlign: 'right' }}>
+        {(form.additionalDetails || '').length} / 2000 caractères
+      </div>
     </div>
   </>
 }

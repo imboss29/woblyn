@@ -7,16 +7,8 @@ export default function ExemplesPage() {
         background: 'var(--ink)',
         color: 'var(--paper)',
         padding: '8px 60px',
-        fontFamily: '"IBM Plex Mono", monospace',
-        fontSize: '11px',
-        letterSpacing: '1px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        textTransform: 'uppercase',
-      }}>
-        <span>Galerie · Exemples</span>
-        <span>Woblyn</span>
-      </div>
+        height: '32px',
+      }}></div>
 
       {/* NAV */}
       <nav style={{
@@ -30,29 +22,37 @@ export default function ExemplesPage() {
         <a href="/" style={{ fontSize: '12px', color: 'var(--ink)', textDecoration: 'none', fontFamily: '"IBM Plex Mono", monospace', letterSpacing: '2px', textTransform: 'uppercase' }}>
           ← Retour
         </a>
-        <a href="/" style={{
-          fontFamily: '"Playfair Display", serif',
-          fontSize: '32px',
-          fontWeight: 900,
-          letterSpacing: '-1px',
-          color: 'var(--ink)',
-          textDecoration: 'none',
-        }}>
-          Woblyn
-        </a>
-        <a href="/signup" style={{
-          background: 'var(--ink)',
-          color: 'var(--paper)',
-          padding: '10px 20px',
-          fontSize: '12px',
-          fontWeight: 600,
-          letterSpacing: '1px',
-          textTransform: 'uppercase',
-          textDecoration: 'none',
-          fontFamily: '"IBM Plex Mono", monospace',
-        }}>
-          Commencer →
-        </a>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <a href="/" style={{
+            fontFamily: '"Playfair Display", serif',
+            fontSize: '32px',
+            fontWeight: 900,
+            letterSpacing: '-1px',
+            color: 'var(--ink)',
+            textDecoration: 'none',
+            lineHeight: 1,
+          }}>
+            Woblyn
+          </a>
+          <div style={{
+            fontFamily: '"IBM Plex Mono", monospace',
+            fontSize: '9px',
+            letterSpacing: '2px',
+            color: 'var(--ink-soft)',
+            textTransform: 'uppercase',
+            marginTop: '4px',
+          }}>
+            Business Plans
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <a href="/faq" style={{ fontSize: '12px', color: 'var(--ink)', textDecoration: 'none', fontFamily: '"IBM Plex Mono", monospace', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            FAQ
+          </a>
+          <a href="/contact" style={{ fontSize: '12px', color: 'var(--ink)', textDecoration: 'none', fontFamily: '"IBM Plex Mono", monospace', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            Contact
+          </a>
+        </div>
       </nav>
 
       {/* HERO */}
@@ -169,7 +169,7 @@ export default function ExemplesPage() {
           maxWidth: '900px',
           margin: '0 auto 24px',
         }}>
-          Votre business plan, <em style={{ fontStyle: 'italic', fontWeight: 400, color: '#a85b32' }}>en 5 minutes</em>.
+          Votre business plan, <em style={{ fontStyle: 'italic', fontWeight: 400, color: '#a85b32' }}>en&nbsp;5&nbsp;minutes</em>.
         </h2>
         <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.7)', marginBottom: '40px', fontWeight: 300 }}>
           Prêt à essayer ? Créez le vôtre maintenant.

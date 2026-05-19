@@ -7,25 +7,19 @@ const templates = [
   {
     id: 'creation',
     title: 'Création d\'entreprise',
-    desc: 'Pour structurer votre projet entrepreneurial et le présenter.',
+    desc: 'Pour structurer votre projet, valider sa viabilité et clarifier votre stratégie avant de vous lancer.',
     icon: '◆',
   },
   {
     id: 'bank',
-    title: 'Demande de prêt bancaire',
-    desc: 'Optimisé pour convaincre votre banquier et obtenir un financement.',
+    title: 'Prêt bancaire',
+    desc: 'Pour convaincre un banquier (BPI, banque traditionnelle, prêt d\'honneur) et obtenir un financement.',
     icon: '$',
-  },
-  {
-    id: 'investor',
-    title: 'Pitch investisseur',
-    desc: 'Pour lever des fonds auprès de business angels ou VC.',
-    icon: '↗',
   },
   {
     id: 'fundraise',
     title: 'Levée de fonds',
-    desc: 'Format détaillé pour une seed ou Série A.',
+    desc: 'Pour convaincre des business angels, fonds d\'investissement ou VCs. Pitch et data room.',
     icon: '⚡',
   },
 ]

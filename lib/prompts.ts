@@ -32,6 +32,7 @@ export type FormData = {
   visionY5: string
   risks: string
   exitStrategy: string
+  additionalDetails?: string
 }
 
 export type Language = 'fr' | 'en'
@@ -92,6 +93,9 @@ DOSSIER PROJET — DONNÉES BRUTES TRANSMISES
    Horizon 5 ans : ${data.visionY5}
    Risques identifiés : ${data.risks}
    Stratégie de sortie : ${data.exitStrategy}
+
+▌ PRÉCISIONS COMPLÉMENTAIRES (CONTEXTE LIBRE)
+${data.additionalDetails ? data.additionalDetails : 'Aucune précision supplémentaire fournie.'}
 `
 
 const buildContextEN = (data: FormData) => `
@@ -150,6 +154,9 @@ PROJECT FILE — RAW DATA PROVIDED
    5-year horizon: ${data.visionY5}
    Identified risks: ${data.risks}
    Exit strategy: ${data.exitStrategy}
+
+▌ ADDITIONAL DETAILS (FREE-FORM CONTEXT)
+${data.additionalDetails ? data.additionalDetails : 'No additional details provided.'}
 `
 
 const personaFR = `
