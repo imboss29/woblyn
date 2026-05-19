@@ -2,89 +2,103 @@ import LegalLayout from '../LegalLayout'
 
 export default function CGUPage() {
   return (
-    <LegalLayout title="Conditions Générales d'Utilisation" updated="9 mai 2026">
+    <LegalLayout title="Conditions Générales d'Utilisation" updated="19 mai 2026">
+      <h2>Article 1 — Objet</h2>
       <p>
-        Les présentes Conditions Générales d'Utilisation (CGU) définissent les modalités d'utilisation du site et du service Woblyn. En créant un compte, vous acceptez intégralement ces conditions.
+        Les présentes Conditions Générales d'Utilisation (CGU) ont pour objet de définir les modalités d'accès et d'utilisation du site woblyn.com édité par <strong>Corentin LECLERC</strong>, entrepreneur individuel (SIRET 885 228 643 00031).
+      </p>
+      <p>
+        En accédant au site ou en créant un compte, l'utilisateur accepte sans réserve les présentes CGU.
       </p>
 
-      <h2>1. Objet</h2>
+      <h2>Article 2 — Accès au service</h2>
       <p>
-        Woblyn est un service en ligne permettant aux entrepreneurs de générer des business plans personnalisés à l'aide de l'intelligence artificielle. Le service est édité par <strong>[NOM DE L'ENTREPRISE]</strong>.
+        Le service est accessible 24h/24 et 7j/7, sous réserve d'éventuelles interruptions pour maintenance technique. Woblyn met tout en œuvre pour garantir la disponibilité du service mais ne saurait être tenu responsable des interruptions ponctuelles.
       </p>
 
-      <h2>2. Accès au service</h2>
+      <h2>Article 3 — Inscription</h2>
       <p>
-        L'accès au service nécessite la création d'un compte personnel. La création de compte est gratuite. Certaines fonctionnalités sont payantes (voir nos <a href="/cgv">CGV</a>).
+        La création d'un compte est nécessaire pour accéder à l'ensemble des fonctionnalités. L'utilisateur s'engage à fournir des informations exactes lors de son inscription (prénom, email).
       </p>
       <p>
-        Vous devez être majeur (18 ans ou plus) ou disposer de l'autorisation d'un représentant légal pour utiliser le service.
+        L'utilisateur est responsable de la confidentialité de son mot de passe et de toutes les actions effectuées depuis son compte.
       </p>
 
-      <h2>3. Création de compte</h2>
-      <p>Lors de la création de votre compte, vous vous engagez à :</p>
+      <h2>Article 4 — Utilisation du service</h2>
+      <p>L'utilisateur s'engage à :</p>
       <ul>
-        <li>Fournir des informations exactes, complètes et à jour</li>
-        <li>Conserver la confidentialité de votre mot de passe</li>
-        <li>Nous notifier immédiatement de toute utilisation non autorisée de votre compte</li>
-      </ul>
-      <p>
-        Vous êtes seul responsable de l'utilisation de votre compte et des actions effectuées depuis celui-ci.
-      </p>
-
-      <h2>4. Utilisation du service</h2>
-      <p>L'utilisateur s'engage à utiliser le service de manière loyale et notamment à ne pas :</p>
-      <ul>
-        <li>Tenter de contourner les mécanismes de sécurité ou de paiement</li>
-        <li>Utiliser le service à des fins illégales ou nuisibles</li>
-        <li>Soumettre des contenus diffamatoires, haineux, ou contraires à la loi</li>
-        <li>Tenter d'extraire massivement le contenu du site (scraping)</li>
-        <li>Partager son compte avec des tiers</li>
-        <li>Utiliser le service pour générer des contenus destinés à tromper ou frauder</li>
-      </ul>
-      <p>
-        Le non-respect de ces engagements peut entraîner la suspension ou la suppression du compte sans préavis ni remboursement.
-      </p>
-
-      <h2>5. Contenu généré par l'IA</h2>
-      <p>
-        Les business plans sont générés par une intelligence artificielle (Claude d'Anthropic) à partir des informations que vous fournissez. Vous reconnaissez que :
-      </p>
-      <ul>
-        <li>Le contenu généré peut contenir des inexactitudes ou approximations</li>
-        <li>Vous devez relire et vérifier l'intégralité du document avant toute utilisation officielle</li>
-        <li>Vous êtes seul responsable du contenu final que vous produisez et utilisez</li>
-        <li>Woblyn n'est pas responsable des décisions prises sur la base des documents générés</li>
+        <li>Utiliser le service conformément à sa destination (génération de business plans)</li>
+        <li>Ne pas utiliser le service à des fins illégales, frauduleuses ou nuisibles</li>
+        <li>Ne pas tenter d'accéder aux comptes d'autres utilisateurs</li>
+        <li>Ne pas tenter de contourner les limitations techniques ou les mesures de sécurité</li>
+        <li>Ne pas surcharger le service par des requêtes automatisées non autorisées</li>
+        <li>Ne pas reproduire, copier ou exploiter commercialement le code, les algorithmes ou les prompts de Woblyn</li>
       </ul>
 
-      <h2>6. Propriété des contenus</h2>
+      <h2>Article 5 — Contenu généré</h2>
       <p>
-        Les business plans générés via le service vous appartiennent intégralement. Vous pouvez les utiliser, les modifier et les diffuser librement.
+        Le business plan généré appartient à l'utilisateur. Toutefois, l'utilisateur reconnaît que :
       </p>
+      <ul>
+        <li>Le contenu est généré par une intelligence artificielle et doit être relu, vérifié et adapté</li>
+        <li>Woblyn ne garantit pas l'exactitude absolue des informations générées</li>
+        <li>L'utilisateur reste seul responsable de l'utilisation faite du document</li>
+      </ul>
+
+      <h2>Article 6 — Limitations d'usage</h2>
       <p>
-        En revanche, l'interface, le code, le design, les algorithmes et les fonctionnalités de Woblyn restent la propriété exclusive de Woblyn.
+        Afin de garantir la qualité du service pour tous, Woblyn applique des limitations techniques (rate limiting) sur les actions sensibles (génération IA, soumission de formulaires). Ces limitations sont automatiques et destinées à prévenir les abus.
       </p>
 
-      <h2>7. Disponibilité du service</h2>
+      <h2>Article 7 — Suspension et résiliation</h2>
       <p>
-        Woblyn s'efforce de maintenir le service accessible 24h/24, 7j/7. Toutefois, des interruptions peuvent survenir pour maintenance, mises à jour, ou en cas d'incident technique. Aucune garantie de disponibilité absolue n'est fournie.
+        Woblyn se réserve le droit de suspendre ou de résilier le compte d'un utilisateur en cas de manquement aux présentes CGU, notamment en cas :
+      </p>
+      <ul>
+        <li>D'utilisation frauduleuse du service</li>
+        <li>De tentative de contournement des mesures de sécurité</li>
+        <li>De comportement abusif envers le service client</li>
+        <li>De non-paiement d'une commande</li>
+      </ul>
+
+      <h2>Article 8 — Suppression de compte</h2>
+      <p>
+        L'utilisateur peut supprimer son compte à tout moment depuis son dashboard. La suppression entraîne l'effacement définitif de toutes ses données dans un délai maximum de 30 jours, à l'exception des données conservées pour des raisons légales (facturation).
       </p>
 
-      <h2>8. Suppression du compte</h2>
+      <h2>Article 9 — Propriété intellectuelle</h2>
       <p>
-        Vous pouvez supprimer votre compte à tout moment depuis votre dashboard. Cette action est irréversible et entraîne la suppression de tous vos business plans.
-      </p>
-      <p>
-        Woblyn se réserve le droit de suspendre ou supprimer un compte en cas de violation des présentes conditions, sans préavis ni remboursement.
+        Tous les éléments composant le site Woblyn (textes, images, logo, code, design, prompts IA) sont protégés par le droit d'auteur et appartiennent à Corentin Leclerc. Toute reproduction, représentation ou diffusion non autorisée est strictement interdite.
       </p>
 
-      <h2>9. Modification des CGU</h2>
+      <h2>Article 10 — Responsabilité</h2>
       <p>
-        Woblyn se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés des modifications par email ou via le site. La poursuite de l'utilisation du service après modification vaut acceptation.
+        Woblyn s'engage à fournir un service de qualité mais ne peut garantir l'absence totale d'erreurs ou de bugs. La responsabilité de Woblyn ne pourra être engagée pour :
+      </p>
+      <ul>
+        <li>Une mauvaise utilisation du service par l'utilisateur</li>
+        <li>Une perte de données liée à un cas de force majeure</li>
+        <li>Les conséquences indirectes liées à l'utilisation des business plans générés</li>
+      </ul>
+
+      <h2>Article 11 — Données personnelles</h2>
+      <p>
+        Le traitement des données personnelles est détaillé dans notre <a href="/confidentialite">Politique de confidentialité</a>.
       </p>
 
-      <h2>10. Droit applicable</h2>
+      <h2>Article 12 — Modifications</h2>
       <p>
-        Les présentes CGU sont régies par le droit français. Tout litige sera soumis aux tribunaux français compétents.
+        Woblyn se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés des modifications substantielles par email ou via une notification sur le site.
+      </p>
+
+      <h2>Article 13 — Droit applicable</h2>
+      <p>
+        Les présentes CGU sont soumises au droit français. Tout litige relatif à leur interprétation ou à leur exécution sera de la compétence exclusive des tribunaux français.
+      </p>
+
+      <h2>Article 14 — Contact</h2>
+      <p>
+        Pour toute question relative aux présentes CGU : <strong>contact@woblyn.com</strong>
       </p>
     </LegalLayout>
   )

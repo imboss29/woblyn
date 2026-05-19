@@ -2,17 +2,20 @@ import LegalLayout from '../LegalLayout'
 
 export default function MentionsLegalesPage() {
   return (
-    <LegalLayout title="Mentions légales" updated="9 mai 2026">
+    <LegalLayout title="Mentions légales" updated="19 mai 2026">
       <h2>Éditeur du site</h2>
       <p>
-        Le site woblyn.com est édité par <strong>[NOM DE L'ENTREPRISE]</strong>.
+        Le site woblyn.com est édité par <strong>Corentin LECLERC</strong>, entrepreneur individuel.
       </p>
       <ul>
-        <li><strong>Forme juridique :</strong> [À COMPLÉTER]</li>
-        <li><strong>Numéro SIRET :</strong> [À COMPLÉTER]</li>
-        <li><strong>Adresse :</strong> [À COMPLÉTER]</li>
+        <li><strong>Forme juridique :</strong> Entrepreneur individuel (micro-entreprise)</li>
+        <li><strong>SIRET :</strong> 885 228 643 00031</li>
+        <li><strong>SIREN :</strong> 885 228 643</li>
+        <li><strong>Code APE :</strong> 58.29C (Édition d'autres logiciels)</li>
+        <li><strong>Adresse :</strong> 3 rue des Arbousiers, 66300 Thuir, France</li>
         <li><strong>Email :</strong> contact@woblyn.com</li>
         <li><strong>Directeur de la publication :</strong> Corentin Leclerc</li>
+        <li><strong>TVA :</strong> Non applicable, article 293 B du Code Général des Impôts (franchise en base de TVA)</li>
       </ul>
 
       <h2>Hébergement</h2>
@@ -33,7 +36,7 @@ export default function MentionsLegalesPage() {
 
       <h2>Propriété intellectuelle</h2>
       <p>
-        L'ensemble des contenus présents sur le site woblyn.com (textes, images, logo, design) sont la propriété exclusive de Woblyn et protégés par le droit d'auteur. Toute reproduction est interdite sans autorisation écrite préalable.
+        L'ensemble des contenus présents sur le site woblyn.com (textes, images, logo, design) sont la propriété exclusive de Corentin Leclerc et protégés par le droit d'auteur. Toute reproduction est interdite sans autorisation écrite préalable.
       </p>
       <p>
         Les business plans générés par l'IA appartiennent intégralement à l'utilisateur qui les a créés.

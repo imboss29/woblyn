@@ -2,109 +2,94 @@ import LegalLayout from '../LegalLayout'
 
 export default function CGVPage() {
   return (
-    <LegalLayout title="Conditions Générales de Vente" updated="9 mai 2026">
+    <LegalLayout title="Conditions Générales de Vente" updated="19 mai 2026">
+      <h2>Article 1 — Objet</h2>
       <p>
-        Les présentes Conditions Générales de Vente (CGV) régissent l'achat des services proposés par Woblyn sur le site woblyn.com.
+        Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre <strong>Corentin LECLERC</strong>, entrepreneur individuel (SIRET 885 228 643 00031), exploitant le service Woblyn accessible à l'adresse woblyn.com (ci-après « Woblyn »), et toute personne effectuant un achat sur le site (ci-après « le Client »).
       </p>
 
-      <h2>1. Vendeur</h2>
-      <p>
-        Le service est commercialisé par <strong>[NOM DE L'ENTREPRISE]</strong>, dont les coordonnées complètes figurent dans les <a href="/mentions-legales">mentions légales</a>.
-      </p>
-
-      <h2>2. Services proposés</h2>
-      <p>
-        Woblyn propose un service en ligne de génération de business plans assistée par intelligence artificielle. Le service comprend :
-      </p>
+      <h2>Article 2 — Service proposé</h2>
+      <p>Woblyn propose un service de génération automatisée de business plans via intelligence artificielle. Le service comprend :</p>
       <ul>
         <li>La génération automatique de 10 sections d'un business plan à partir d'un questionnaire</li>
-        <li>Un éditeur permettant de personnaliser le contenu et le design</li>
-        <li>L'export du document en format PDF</li>
+        <li>L'accès à un éditeur en ligne pour personnaliser le document</li>
+        <li>Le téléchargement du business plan au format PDF</li>
       </ul>
 
-      <h2>3. Tarifs</h2>
+      <h2>Article 3 — Prix</h2>
       <p>
-        Les tarifs sont indiqués en euros, toutes taxes comprises (TTC). Les offres actuelles sont :
+        Le prix du plan Starter est de <strong>97 € TTC</strong> en paiement unique. Conformément à l'article 293 B du Code Général des Impôts, la TVA n'est pas applicable (franchise en base).
+      </p>
+      <p>
+        Le prix est indiqué en euros et est dû à la commande.
+      </p>
+
+      <h2>Article 4 — Paiement</h2>
+      <p>
+        Le paiement s'effectue en ligne par carte bancaire (Visa, Mastercard, American Express) via notre prestataire Stripe, certifié PCI-DSS. Aucune donnée bancaire n'est stockée sur les serveurs de Woblyn.
+      </p>
+
+      <h2>Article 5 — Livraison du service</h2>
+      <p>
+        Dès validation du paiement, le Client accède immédiatement à son business plan complet sur son compte Woblyn. Le business plan peut être téléchargé en PDF autant de fois que nécessaire.
+      </p>
+
+      <h2>Article 6 — Droit de rétractation</h2>
+      <p>
+        Conformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne s'applique pas aux contenus numériques fournis sur un support immatériel dont l'exécution a commencé avec l'accord préalable exprès du consommateur.
+      </p>
+      <p>
+        En validant son achat, le Client reconnaît expressément que la prestation commence immédiatement et accepte de renoncer à son droit de rétractation.
+      </p>
+
+      <h2>Article 7 — Remboursement</h2>
+      <p>
+        Conformément à l'article 6, aucun remboursement n'est dû. Toutefois, en cas de problème technique avéré empêchant la génération du business plan, Woblyn s'engage à étudier la demande de remboursement au cas par cas. Le Client doit en faire la demande à contact@woblyn.com dans les 7 jours suivant l'achat.
+      </p>
+
+      <h2>Article 8 — Propriété intellectuelle</h2>
+      <p>
+        Le business plan généré appartient au Client. Il peut l'utiliser librement à titre personnel ou professionnel (présentation à des banques, investisseurs, incubateurs, etc.).
+      </p>
+      <p>
+        Le code source de la plateforme Woblyn, le design, les algorithmes et les prompts utilisés restent la propriété exclusive de Corentin Leclerc.
+      </p>
+
+      <h2>Article 9 — Garantie et responsabilité</h2>
+      <p>
+        Woblyn est un outil d'aide à la rédaction. Le business plan généré est une <strong>première version</strong> qui doit être relue, vérifiée et adaptée par le Client. Woblyn ne garantit pas l'obtention d'un financement bancaire ou d'un investissement sur la base du document fourni.
+      </p>
+      <p>
+        La responsabilité de Woblyn ne saurait être engagée pour :
       </p>
       <ul>
-        <li><strong>Free</strong> — 0€ : aperçu de 3 sections, sans export</li>
-        <li><strong>Starter</strong> — 97€ : un business plan complet, paiement unique</li>
-        <li><strong>Pro</strong> — 149€/mois : business plans illimités, fonctionnalités avancées</li>
-        <li><strong>Business</strong> — 299€/mois : pour cabinets et incubateurs, jusqu'à 10 utilisateurs</li>
+        <li>Les décisions prises par le Client sur la base du business plan</li>
+        <li>Les refus de financement ou d'investissement</li>
+        <li>Les erreurs ou inexactitudes liées aux données saisies par le Client</li>
+        <li>Les interruptions temporaires du service liées à des opérations de maintenance</li>
       </ul>
+
+      <h2>Article 10 — Données personnelles</h2>
       <p>
-        Woblyn se réserve le droit de modifier ses tarifs à tout moment. Les modifications n'affectent pas les abonnements en cours.
+        Le traitement des données personnelles est régi par notre <a href="/confidentialite">Politique de confidentialité</a>.
       </p>
 
-      <h2>4. Commande et paiement</h2>
+      <h2>Article 11 — Service client</h2>
       <p>
-        L'achat s'effectue en ligne via notre prestataire de paiement Stripe. Les moyens de paiement acceptés sont les cartes bancaires (Visa, Mastercard, American Express).
-      </p>
-      <p>
-        Le paiement est exigible immédiatement à la commande. Une facture est envoyée par email après chaque paiement.
+        Pour toute question, le Client peut contacter le service client à : <strong>contact@woblyn.com</strong>. Le délai de réponse est de 24 à 48 heures ouvrées.
       </p>
 
-      <h2>5. Livraison du service</h2>
+      <h2>Article 12 — Modification des CGV</h2>
       <p>
-        L'accès au service est immédiat après confirmation du paiement. Pour les abonnements mensuels, l'accès est renouvelé automatiquement chaque mois jusqu'à résiliation.
+        Woblyn se réserve le droit de modifier les présentes CGV à tout moment. Les CGV applicables sont celles en vigueur à la date de la commande.
       </p>
 
-      <h2>6. Droit de rétractation</h2>
+      <h2>Article 13 — Droit applicable et juridiction</h2>
       <p>
-        Conformément à l'article L.221-28 du Code de la consommation, le droit de rétractation ne peut être exercé pour les contenus numériques fournis sur un support immatériel dont l'exécution a commencé avec l'accord exprès du consommateur.
+        Les présentes CGV sont soumises au droit français. En cas de litige, et après tentative de résolution amiable, les tribunaux français seront seuls compétents.
       </p>
       <p>
-        En achetant un business plan, vous reconnaissez expressément que :
-      </p>
-      <ul>
-        <li>L'exécution du service commence dès la confirmation du paiement</li>
-        <li>Vous renoncez à votre droit de rétractation de 14 jours</li>
-      </ul>
-      <p>
-        Pour les abonnements mensuels, vous pouvez résilier à tout moment depuis votre dashboard. La résiliation prend effet à la fin de la période en cours.
-      </p>
-
-      <h2>7. Garanties</h2>
-      <p>
-        Woblyn s'engage à fournir un service conforme à la description faite sur le site. Toutefois, les business plans générés sont des documents d'aide à la rédaction. Ils doivent être relus, vérifiés et adaptés par l'utilisateur avant toute utilisation officielle (banque, investisseur, administration).
-      </p>
-      <p>
-        Woblyn ne garantit pas l'obtention d'un financement, d'un prêt bancaire ou d'un investissement sur la base des documents générés.
-      </p>
-
-      <h2>8. Responsabilité</h2>
-      <p>
-        Woblyn ne peut être tenu responsable :
-      </p>
-      <ul>
-        <li>Des décisions prises par l'utilisateur sur la base des documents générés</li>
-        <li>Des inexactitudes éventuelles dans le contenu généré par l'IA</li>
-        <li>Des conséquences financières liées à l'utilisation des business plans</li>
-        <li>D'une interruption ponctuelle du service (maintenance, incident technique)</li>
-      </ul>
-      <p>
-        En cas de défaillance avérée, la responsabilité de Woblyn est limitée au montant payé par l'utilisateur sur les 12 derniers mois.
-      </p>
-
-      <h2>9. Propriété intellectuelle</h2>
-      <p>
-        Les business plans générés appartiennent intégralement à l'utilisateur qui les a créés. Woblyn n'en revendique aucun droit.
-      </p>
-      <p>
-        L'interface, le code source, le design et les fonctionnalités du site restent la propriété exclusive de Woblyn.
-      </p>
-
-      <h2>10. Données personnelles</h2>
-      <p>
-        Le traitement des données personnelles est régi par notre <a href="/confidentialite">politique de confidentialité</a>.
-      </p>
-
-      <h2>11. Litiges</h2>
-      <p>
-        En cas de litige, une solution amiable sera recherchée avant toute action judiciaire. À défaut d'accord, les tribunaux français seront seuls compétents. Le droit français est applicable.
-      </p>
-      <p>
-        Conformément à l'article L.616-1 du Code de la consommation, l'utilisateur peut recourir gratuitement à un médiateur de la consommation. Plateforme européenne de règlement des litiges : <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noreferrer">ec.europa.eu/consumers/odr</a>.
+        Conformément à l'article L612-1 du Code de la consommation, le Client peut recourir gratuitement au médiateur de la consommation pour résoudre un litige : <a href="https://www.economie.gouv.fr/mediation-conso" target="_blank" rel="noopener noreferrer">www.economie.gouv.fr/mediation-conso</a>.
       </p>
     </LegalLayout>
   )
