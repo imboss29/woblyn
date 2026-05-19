@@ -3,6 +3,7 @@ import { authOptions } from '../../lib/auth'
 import { redirect } from 'next/navigation'
 import { prisma } from '../../lib/prisma'
 import DeleteAccount from './DeleteAccount'
+import DeleteProjectButton from './DeleteProjectButton'
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
@@ -29,16 +30,8 @@ export default async function DashboardPage() {
         background: 'var(--ink)',
         color: 'var(--paper)',
         padding: '8px 60px',
-        fontFamily: '"IBM Plex Mono", monospace',
-        fontSize: '11px',
-        letterSpacing: '1px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        textTransform: 'uppercase',
-      }}>
-        <span>Tableau de bord · Édition Mai 2026</span>
-        <span>Woblyn</span>
-      </div>
+        height: '32px',
+      }}></div>
 
       {/* NAV */}
       <nav style={{
@@ -49,9 +42,11 @@ export default async function DashboardPage() {
         gridTemplateColumns: '1fr auto 1fr',
         alignItems: 'center',
       }}>
-        <div style={{ display: 'flex', gap: '32px', fontSize: '13px', fontWeight: 500 }}>
+        <div style={{ display: 'flex', gap: '24px', fontSize: '13px', fontWeight: 500 }}>
           <a href="/dashboard" style={{ color: 'var(--ink)', textDecoration: 'none', fontWeight: 700 }}>Mes plans</a>
           <a href="/" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Accueil</a>
+          <a href="/faq" style={{ color: 'var(--gray)', textDecoration: 'none' }}>FAQ</a>
+          <a href="/contact" style={{ color: 'var(--gray)', textDecoration: 'none' }}>Contact</a>
         </div>
         <div style={{ textAlign: 'center' }}>
           <div style={{
@@ -67,12 +62,9 @@ export default async function DashboardPage() {
             color: 'var(--gray)',
             marginTop: '-2px',
             textTransform: 'uppercase',
-          }}>Business Plans · Établi 2026</div>
+          }}>Business Plans</div>
         </div>
         <div style={{ textAlign: 'right', display: 'flex', gap: '16px', justifyContent: 'flex-end', alignItems: 'center' }}>
-          <span style={{ fontSize: '13px', color: 'var(--gray)' }}>
-            {session.user.name || session.user.email}
-          </span>
           <a href="/api/auth/signout" style={{
             fontSize: '12px',
             color: 'var(--ink)',
@@ -257,12 +249,10 @@ export default async function DashboardPage() {
                   : `/projects/${project.id}/edit`
 
                 return (
-                  <a key={project.id} href={href} style={{
+                  <div key={project.id} style={{
                     background: 'white',
                     border: '1px solid var(--gray-line)',
                     padding: '32px',
-                    textDecoration: 'none',
-                    color: 'inherit',
                     display: 'flex',
                     flexDirection: 'column',
                     minHeight: '220px',
@@ -299,20 +289,22 @@ export default async function DashboardPage() {
                       {statusLabel}
                     </div>
 
-                    {/* Titre */}
-                    <h3 style={{
-                      fontFamily: '"Playfair Display", serif',
-                      fontSize: '24px',
-                      fontWeight: 700,
-                      marginBottom: '12px',
-                      letterSpacing: '-0.5px',
-                      lineHeight: 1.2,
-                      paddingRight: '40px',
-                    }}>
-                      {project.name}
-                    </h3>
+                    {/* Titre cliquable */}
+                    <a href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <h3 style={{
+                        fontFamily: '"Playfair Display", serif',
+                        fontSize: '24px',
+                        fontWeight: 700,
+                        marginBottom: '12px',
+                        letterSpacing: '-0.5px',
+                        lineHeight: 1.2,
+                        paddingRight: '40px',
+                      }}>
+                        {project.name}
+                      </h3>
+                    </a>
 
-                    {/* Date */}
+                    {/* Date + actions */}
                     <div style={{
                       fontSize: '12px',
                       color: 'var(--gray)',
@@ -322,11 +314,20 @@ export default async function DashboardPage() {
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
+                      gap: '8px',
                     }}>
-                      <span>Modifié le {new Date(project.updatedAt).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}</span>
-                      <span style={{ color: 'var(--ink)', fontWeight: 600 }}>→</span>
+                      <span>{new Date(project.updatedAt).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <DeleteProjectButton projectId={project.id} isPaid={project.isPaid} />
+                        <a href={href} style={{ 
+                          color: 'var(--ink)', 
+                          fontWeight: 600,
+                          textDecoration: 'none',
+                          fontSize: '14px',
+                        }}>→</a>
+                      </div>
                     </div>
-                  </a>
+                  </div>
                 )
               })}
 
