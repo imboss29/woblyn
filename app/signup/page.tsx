@@ -74,14 +74,15 @@ export default function SignupPage() {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label style={labelStyle}>Nom</label>
-            <input
-              type="text"
-              required
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              style={inputStyle}
-            />
+            <label style={labelStyle}>Prénom</label>
+<input
+  type="text"
+  required
+  placeholder="Ex: Corentin"
+  value={form.name}
+  onChange={(e) => setForm({ ...form, name: e.target.value })}
+  style={inputStyle}
+/>
           </div>
           <div>
             <label style={labelStyle}>Email</label>

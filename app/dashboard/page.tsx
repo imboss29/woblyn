@@ -426,6 +426,8 @@ export default async function DashboardPage() {
         letterSpacing: '-1px',
       }}>Woblyn</div>
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+        <a href="/faq" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>FAQ</a>
+        <a href="/contact" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>Contact</a>
         <a href="/mentions-legales" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>Mentions légales</a>
         <a href="/confidentialite" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>Confidentialité</a>
         <a href="/cgv" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none', fontSize: '13px' }}>CGV</a>

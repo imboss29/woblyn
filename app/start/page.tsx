@@ -110,7 +110,7 @@ export default function StartPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px', marginBottom: '24px' }}>
               <div>
                 <div style={{ fontFamily: '"Playfair Display", serif', fontSize: '36px', fontWeight: 900, color: '#1d4ed8', lineHeight: 1, marginBottom: '8px' }}>
-                  10
+                  11
                 </div>
                 <div style={{ fontSize: '13px', color: 'var(--gray)' }}>
                   Étapes de questionnaire
@@ -118,7 +118,7 @@ export default function StartPage() {
               </div>
               <div>
                 <div style={{ fontFamily: '"Playfair Display", serif', fontSize: '36px', fontWeight: 900, color: '#1d4ed8', lineHeight: 1, marginBottom: '8px' }}>
-                  ~12 min
+                  ~10 min
                 </div>
                 <div style={{ fontSize: '13px', color: 'var(--gray)' }}>
                   Temps estimé
