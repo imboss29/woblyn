@@ -8,7 +8,7 @@ const FAQ_ITEMS = [
     items: [
       {
         q: "Qu'est-ce que Woblyn ?",
-        a: "Woblyn est un générateur de business plan propulsé par l'intelligence artificielle. En répondant à un questionnaire de quelques minutes, vous obtenez un business plan professionnel complet (10 sections, projections financières, tableaux) prêt à présenter à votre banque, vos investisseurs ou un incubateur."
+        a: "Woblyn est un générateur de business plan propulsé par l'intelligence artificielle. En répondant à un questionnaire de 11 étapes (5 minutes), vous obtenez un business plan professionnel complet (10 sections, projections financières, tableaux) prêt à présenter à votre banque, vos investisseurs ou un incubateur."
       },
       {
         q: "À qui s'adresse Woblyn ?",
@@ -115,13 +115,9 @@ export default function FAQPage() {
       
       <div style={{
         background: 'var(--ink)', color: 'var(--paper)',
-        padding: '8px 60px', fontFamily: '"IBM Plex Mono", monospace',
-        fontSize: '11px', letterSpacing: '1px',
-        display: 'flex', justifyContent: 'space-between', textTransform: 'uppercase',
-      }}>
-        <span>FAQ</span>
-        <span>Woblyn</span>
-      </div>
+        padding: '8px 60px',
+        height: '32px',
+      }}></div>
 
       <nav style={{
         background: 'var(--paper)', padding: '24px 60px',

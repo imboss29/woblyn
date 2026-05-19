@@ -98,13 +98,9 @@ export default function ExportPage() {
       {/* TOPBAR */}
       <div style={{
         background: 'var(--ink)', color: 'var(--paper)',
-        padding: '8px 60px', fontFamily: '"IBM Plex Mono", monospace',
-        fontSize: '11px', letterSpacing: '1px',
-        display: 'flex', justifyContent: 'space-between', textTransform: 'uppercase',
-      }}>
-        <span>Export · {project.name}</span>
-        <span>Woblyn</span>
-      </div>
+        padding: '8px 60px',
+        height: '32px',
+      }}></div>
 
       {/* NAV */}
       <nav style={{
