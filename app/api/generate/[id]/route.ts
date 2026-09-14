@@ -6,7 +6,7 @@ import { prompts, SECTION_KEYS, FormData } from '../../../../lib/prompts'
 import { generateSection } from '../../../../lib/anthropic'
 import { expensiveRatelimit, getIp, checkRateLimit } from '../../../../lib/ratelimit'
 
-export const maxDuration = 300 // 5 minutes max
+export const maxDuration = 60 // limite plan Hobby
 
 export async function POST(
   req: Request,
@@ -46,17 +46,20 @@ export async function POST(
 
     const formData = project.formData as unknown as FormData
 
-    // Génère les sections une par une (évite le rate limit)
-const sections: Record<string, string> = {}
+       // Génère TOUTES les sections en parallèle (le plus rapide)
+    const sections: Record<string, string> = {}
+    const lang = ((project.language as 'fr' | 'en') || 'fr')
 
-for (const key of SECTION_KEYS) {
-  const lang = ((project.language as 'fr' | 'en') || 'fr')
-  const prompt = prompts[key](formData, lang)
-  const text = await generateSection(prompt)
-  sections[key] = text
-  // Petit délai entre chaque appel pour rester safe
-  await new Promise(resolve => setTimeout(resolve, 500))
-}
+    const results = await Promise.all(
+      SECTION_KEYS.map(async (key) => {
+        const prompt = prompts[key](formData, lang)
+        const text = await generateSection(prompt)
+        return { key, text }
+      })
+    )
+    for (const { key, text } of results) {
+      sections[key] = text
+    }
 
     // Sauvegarde
     await prisma.project.update({
