@@ -4,7 +4,7 @@ import { authOptions } from '../../../../../lib/auth'
 import { prisma } from '../../../../../lib/prisma'
 import { prompts, FormData, SectionKey } from '../../../../../lib/prompts'
 import { generateSection } from '../../../../../lib/anthropic'
-import { expensiveRatelimit, getIp } from '../../../../../lib/ratelimit'
+import { expensiveRatelimit, getIp, checkRateLimit } from '../../../../../lib/ratelimit'
 
 export const maxDuration = 60
 
@@ -15,7 +15,7 @@ export async function POST(
   try {
     // Rate limiting
     const ip = getIp(req)
-    const { success } = await expensiveRatelimit.limit(ip)
+    const success = await checkRateLimit(expensiveRatelimit, ip)
     if (!success) {
       return NextResponse.json(
         { error: 'Trop de requêtes. Réessayez dans 1 minute.' },

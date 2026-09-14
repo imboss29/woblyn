@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '../../../lib/prisma'
-import { formRatelimit, getIp } from '../../../lib/ratelimit'
+import { formRatelimit, getIp, checkRateLimit } from '../../../lib/ratelimit'
 
 export async function POST(req: Request) {
   try {
     // Rate limiting (3 req par 10 min)
     const ip = getIp(req)
-    const { success } = await formRatelimit.limit(ip)
+    const success = await checkRateLimit(formRatelimit, ip)
     if (!success) {
       return NextResponse.json(
         { error: 'Trop de tentatives. Réessayez dans 10 minutes.' },
